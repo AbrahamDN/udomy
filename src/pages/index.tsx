@@ -1,56 +1,124 @@
+import { useState } from "react";
+
 import {
-  Link as ChakraLink,
   Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
+  Flex,
+  Box,
+  AspectRatio,
+  useMediaQuery,
+  Button,
+  Heading,
 } from "@chakra-ui/react";
-import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
 
-import { Hero } from "../components/Hero";
 import { Container } from "../components/Container";
-import { Main } from "../components/Main";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { CTA } from "../components/CTA";
-import { Footer } from "../components/Footer";
+import Header from "../components/Header";
+import { ArrowBackIcon, CloseIcon } from "@chakra-ui/icons";
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text color="text">
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{" "}
-        <Code>TypeScript</Code>.
-      </Text>
+const Index = () => {
+  const [sidebar, setSidebar] = useState(false);
+  const [isLargeScreen] = useMediaQuery("(min-width: 64em)");
+  const [isSidebarBreak] = useMediaQuery(
+    "(min-width: 61.31em) and (max-width: 75em)"
+  );
 
-      <List spacing={3} my={0} color="text">
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="primary.400" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
+  return (
+    <Flex minH="100vh" width="full" direction="column">
+      <Header />
+
+      <Box as="main" position="relative" flex={1} h="full">
+        <Flex
+          w={
+            sidebar && isLargeScreen
+              ? isSidebarBreak
+                ? "calc(100% - 300px)"
+                : "75%"
+              : "full"
+          }
+          h="full"
+          flex={1}
+          direction="column"
+        >
+          <AspectRatio
+            flex={1}
+            maxW="full"
+            height={sidebar ? "60vh" : "auto"}
+            maxHeight={sidebar ? "60vh" : "80vh"}
+            minH="96"
+            ratio={16 / 9}
           >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="primary.400" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+            <Box bg="black" position="relative">
+              {!sidebar && (
+                <Button
+                  onClick={() => setSidebar(true)}
+                  aria-label="Course content"
+                  position="absolute"
+                  right={0}
+                  top="2"
+                  minH={12}
+                  bgColor="black"
+                  color="white"
+                  fontWeight="bold"
+                  borderRadius={0}
+                  border="1px solid"
+                  borderColor="whiteAlpha.500"
+                  px={3}
+                  transition="all 300ms ease-in-out"
+                  transform="translateX(8.2rem)"
+                  _hover={{ bgColor: "darkGrey", transform: "translateX(0)" }}
+                  _focus={{ bgColor: "darkGrey", transform: "translateX(0)" }}
+                >
+                  <Flex alignItems="center">
+                    <ArrowBackIcon w="6" h="6" />
+                    <Text as="span" ml={3}>
+                      Course content
+                    </Text>
+                  </Flex>
+                </Button>
+              )}
+            </Box>
+          </AspectRatio>
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-);
+          {isLargeScreen && sidebar && (
+            <Box
+              as="aside"
+              minW={isLargeScreen ? (isSidebarBreak ? "300px" : "25%") : "25%"}
+              borderLeft="1px solid"
+              borderColor="gray.50"
+              bgColor="white"
+              height="100%"
+              position="absolute"
+              right={0}
+            >
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                border="1px solid"
+                borderColor="gray.400"
+                p={2}
+                pl={4}
+              >
+                <Heading size="sm">Course content</Heading>
+
+                <Button
+                  onClick={() => setSidebar(false)}
+                  p={0.5}
+                  bgColor="transparent"
+                  _hover={{ bgColor: "transparent" }}
+                  _focus={{ bgColor: "transparent" }}
+                >
+                  <CloseIcon w="3" h="3" />
+                </Button>
+              </Flex>
+            </Box>
+          )}
+
+          <Box flex={1} h="full">
+            <Container>Dashboard</Container>
+          </Box>
+        </Flex>
+      </Box>
+    </Flex>
+  );
+};
 
 export default Index;
