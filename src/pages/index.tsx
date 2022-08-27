@@ -13,9 +13,11 @@ import {
 import { Container } from "../components/Container";
 import Header from "../components/Header";
 import { ArrowBackIcon, CloseIcon } from "@chakra-ui/icons";
+import DashboardTabs from "../components/DashboardTabs";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
+  const [isDesktop] = useMediaQuery("(min-width: 90em)");
   const [isLargeScreen] = useMediaQuery("(min-width: 64em)");
   const [isSidebarBreak] = useMediaQuery(
     "(min-width: 61.31em) and (max-width: 75em)"
@@ -47,7 +49,7 @@ const Index = () => {
             ratio={16 / 9}
           >
             <Box bg="black" position="relative">
-              {!sidebar && (
+              {isLargeScreen && !sidebar && (
                 <Button
                   onClick={() => setSidebar(true)}
                   aria-label="Course content"
@@ -113,7 +115,16 @@ const Index = () => {
           )}
 
           <Box flex={1} h="full">
-            <Container>Dashboard</Container>
+            <Container
+              maxW={isDesktop ? "7xl" : "5xl"}
+              textAlign="left"
+              m="auto"
+              bgColor="transparent"
+            >
+              <Flex w="full" px={6} textAlign="left">
+                <DashboardTabs sidebar={sidebar} />
+              </Flex>
+            </Container>
           </Box>
         </Flex>
       </Box>

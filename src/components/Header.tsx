@@ -10,7 +10,7 @@ const Header = () => {
       borderColor="whiteAlpha.400"
       color="white"
     >
-      <Flex h={16} alignItems={"center"} gap={5}>
+      <Flex h={14} alignItems={"center"} gap={5}>
         <Box style={{ fontWeight: "bold" }}>Logo</Box>
 
         <Divider maxH="6" orientation="vertical" borderColor="whiteAlpha.400" />
