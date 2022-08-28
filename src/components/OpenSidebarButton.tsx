@@ -23,7 +23,7 @@ const OpenSidebarButton = ({ setSidebar }: OpenSidebarButtonProps) => {
       borderColor="whiteAlpha.500"
       px={3}
       transition="all 300ms ease-in-out"
-      transform="translateX(8.2rem)"
+      transform="translateX(8.4rem)"
       _hover={{ bgColor: "darkGrey", transform: "translateX(0)" }}
       _focus={{ bgColor: "darkGrey", transform: "translateX(0)" }}
     >
