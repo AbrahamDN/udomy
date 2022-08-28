@@ -10,7 +10,7 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import CourseContent from "./CourseContent";
+import CourseContent from "../CourseContent";
 
 type TabTitleProps = { title: string };
 type DashboardTabsProps = { sidebar: boolean };

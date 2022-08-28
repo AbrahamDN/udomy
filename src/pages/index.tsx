@@ -3,17 +3,15 @@ import { useLocalStorage } from "react-use";
 
 import { Flex, Box, AspectRatio, useMediaQuery } from "@chakra-ui/react";
 
-import { Container } from "../components/Container";
 import Header from "../components/Header";
-import DashboardTabs from "../components/DashboardTabs";
-import Sidebar from "../components/sidebar";
+import Sidebar from "../components/Sidebar";
 import OpenSidebarButton from "../components/OpenSidebarButton";
+import Dashboard from "../components/Dashboard";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
   const [localSidebar, setLocalSidebar] = useLocalStorage("sidebar", false);
 
-  const [isDesktop] = useMediaQuery("(min-width: 90em)");
   const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
   const [isSidebarBreak] = useMediaQuery(
     "(min-width: 61.31em) and (max-width: 75em)"
@@ -61,22 +59,9 @@ const Index = () => {
             </Box>
           </AspectRatio>
 
-          {/* SIDEBAR */}
           {isLargeScreen && sidebar && <Sidebar setSidebar={setSidebar} />}
 
-          {/* DASHBOARD */}
-          <Box flex={1} h="full">
-            <Container
-              maxW={isDesktop ? "7xl" : "5xl"}
-              textAlign="left"
-              m="auto"
-              bgColor="transparent"
-            >
-              <Flex w="full" px={isLargeScreen ? 6 : 0} textAlign="left">
-                <DashboardTabs sidebar={sidebar} />
-              </Flex>
-            </Container>
-          </Box>
+          <Dashboard sidebar={sidebar} />
         </Flex>
       </Box>
     </Flex>
