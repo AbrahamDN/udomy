@@ -1,6 +1,7 @@
 import { AspectRatio, Box, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import OpenSidebarButton from "./OpenSidebarButton";
+import Video from "./Video";
 
 type VideoSectionProps = {
   sidebar: boolean;
@@ -19,6 +20,8 @@ const VideoSection = ({ sidebar, setSidebar }: VideoSectionProps) => {
       ratio={16 / 9}
     >
       <Box bg="black" position="relative">
+        <Video />
+
         {isLargeScreen && !sidebar && (
           <OpenSidebarButton setSidebar={setSidebar} />
         )}
