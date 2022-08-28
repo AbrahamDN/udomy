@@ -6,7 +6,7 @@ const fonts = { mono: `'Open Sans', monospace` };
 const breakpoints = createBreakpoints({
   sm: "40em",
   md: "52em",
-  lg: "64em",
+  lg: "61.25em",
   xl: "80em",
   xxl: "90em",
 });
@@ -32,8 +32,9 @@ const theme = extendTheme({
     },
   },
   colors: {
-    black: "#1c1d1f",
     white: "#fff",
+    black: "#1c1d1f",
+    dark: "#1c1d1f",
     primary: {
       900: "#007121",
       800: "#009135",
@@ -46,10 +47,26 @@ const theme = extendTheme({
       100: "#c4eece",
       50: "#e6f8eb",
     },
-    grey: "#d1d7dc",
+    grey: {
+      50: "#edeff0",
+      100: "#d1d7dc",
+      200: "#b3bdc5",
+      300: "#94a2af",
+      400: "#7d8e9d",
+      500: "#667a8c",
+      600: "#596c7b",
+      700: "#495865",
+      800: "#3a454f",
+      900: "#293138",
+    },
     lightGrey: "#f7f9fa",
     darkGrey: "#3e4143",
     cloudGrey: "#6a6f73",
+    schemeBlack: {
+      400: "#3c3e40",
+      500: "#1c1d1f",
+      600: "#1c1d1f",
+    },
   },
   fonts,
   breakpoints,
