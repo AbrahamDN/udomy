@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useWindowScroll, useLocalStorage } from "react-use";
+import { useLocalStorage } from "react-use";
 
 import {
   Text,
@@ -8,14 +8,13 @@ import {
   AspectRatio,
   useMediaQuery,
   Button,
-  Heading,
 } from "@chakra-ui/react";
 
 import { Container } from "../components/Container";
 import Header from "../components/Header";
-import { ArrowBackIcon, CloseIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import DashboardTabs from "../components/DashboardTabs";
-import CourseContent from "../components/CourseContent";
+import Sidebar from "../components/sidebar";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -26,9 +25,6 @@ const Index = () => {
   const [isSidebarBreak] = useMediaQuery(
     "(min-width: 61.31em) and (max-width: 75em)"
   );
-
-  const { y: scrollY } = useWindowScroll();
-  const calcYSpace = scrollY <= 57 ? scrollY : 57;
 
   useEffect(() => {
     setSidebar(localSidebar);
@@ -98,53 +94,7 @@ const Index = () => {
           </AspectRatio>
 
           {/* SIDEBAR */}
-          {isLargeScreen && sidebar && (
-            <Box
-              as="aside"
-              minW={isLargeScreen ? (isSidebarBreak ? "300px" : "25%") : "25%"}
-              h="100%"
-              borderLeft="1px solid"
-              borderColor="gray.50"
-              bgColor="white"
-              position="fixed"
-              top={`calc(0px + (57px - ${calcYSpace}px))`}
-              right={0}
-              transition="all 150ms ease"
-            >
-              <Flex
-                justifyContent="space-between"
-                alignItems="center"
-                border="1px solid"
-                borderColor="gray.400"
-                p={2}
-                pl={4}
-              >
-                <Heading size="sm">Course content</Heading>
-
-                <Button
-                  onClick={() => setSidebar(false)}
-                  p={0.5}
-                  bgColor="transparent"
-                  _hover={{ bgColor: "transparent" }}
-                  _focus={{ bgColor: "transparent" }}
-                >
-                  <CloseIcon w="3" h="3" />
-                </Button>
-              </Flex>
-
-              <Box
-                w="full"
-                h="full"
-                minH="494px"
-                maxH={`calc((100vh - 115px) + ${calcYSpace}px)`}
-                overflowY="auto"
-                bgColor="white"
-                transition="all 150ms ease"
-              >
-                <CourseContent />
-              </Box>
-            </Box>
-          )}
+          {isLargeScreen && sidebar && <Sidebar setSidebar={setSidebar} />}
 
           <Box flex={1} h="full">
             <Container
