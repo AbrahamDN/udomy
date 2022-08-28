@@ -8,6 +8,7 @@ import Sidebar from "../components/Sidebar";
 import OpenSidebarButton from "../components/OpenSidebarButton";
 import Dashboard from "../components/Dashboard";
 import VideoSection from "../components/VideoSection";
+import { Footer } from "../components/Footer";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -50,6 +51,8 @@ const Index = () => {
           {isLargeScreen && sidebar && <Sidebar setSidebar={setSidebar} />}
 
           <Dashboard sidebar={sidebar} />
+
+          <Footer />
         </Flex>
       </Box>
     </Flex>
