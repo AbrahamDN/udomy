@@ -8,7 +8,6 @@ import {
   Heading,
   Container,
   Text,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import CourseContent from "../CourseContent";
 
@@ -33,8 +32,6 @@ const DashboardTab = ({ title }: TabTitleProps) => {
 };
 
 const DashboardTabs = ({ sidebar }: DashboardTabsProps) => {
-  const [isMediumScreen] = useMediaQuery("(min-width: 52em)");
-
   return (
     <Tabs w="full" zIndex={1} bgColor="transparent">
       <TabList>
@@ -49,8 +46,8 @@ const DashboardTabs = ({ sidebar }: DashboardTabsProps) => {
           <TabPanel>
             <Container
               py={8}
-              px={isMediumScreen ? "inherit" : 0}
-              maxW={isMediumScreen ? "3xl" : "full"}
+              px={{ base: 0, md: "inherit" }}
+              maxW={{ base: "full", md: "3xl" }}
             >
               <CourseContent />
             </Container>
