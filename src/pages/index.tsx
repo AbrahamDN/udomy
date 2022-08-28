@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useWindowScroll } from "react-use";
 
 import {
   Text,
@@ -14,18 +15,24 @@ import { Container } from "../components/Container";
 import Header from "../components/Header";
 import { ArrowBackIcon, CloseIcon } from "@chakra-ui/icons";
 import DashboardTabs from "../components/DashboardTabs";
+import CourseContent from "../components/CourseContent";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
   const [isDesktop] = useMediaQuery("(min-width: 90em)");
-  const [isLargeScreen] = useMediaQuery("(min-width: 64em)");
+  const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
   const [isSidebarBreak] = useMediaQuery(
     "(min-width: 61.31em) and (max-width: 75em)"
   );
 
+  const { y: scrollY } = useWindowScroll();
+  const calcYSpace = scrollY <= 57 ? scrollY : 57;
+
   return (
     <Flex minH="100vh" width="full" direction="column">
-      <Header />
+      <Box as="header" h="fit-content">
+        <Header />
+      </Box>
 
       <Box as="main" position="relative" flex={1} h="full">
         <Flex
@@ -43,9 +50,9 @@ const Index = () => {
           <AspectRatio
             flex={1}
             maxW="full"
-            height={sidebar ? "60vh" : "auto"}
-            maxHeight={sidebar ? "60vh" : "80vh"}
-            minH="96"
+            height={isLargeScreen && sidebar ? "60vh" : "auto"}
+            maxHeight={isLargeScreen && sidebar ? "60vh" : "80vh"}
+            minH="72"
             ratio={16 / 9}
           >
             <Box bg="black" position="relative">
@@ -80,16 +87,19 @@ const Index = () => {
             </Box>
           </AspectRatio>
 
+          {/* SIDEBAR */}
           {isLargeScreen && sidebar && (
             <Box
               as="aside"
               minW={isLargeScreen ? (isSidebarBreak ? "300px" : "25%") : "25%"}
+              h="100%"
               borderLeft="1px solid"
               borderColor="gray.50"
               bgColor="white"
-              height="100%"
-              position="absolute"
+              position="fixed"
+              top={`calc(0px + (57px - ${calcYSpace}px))`}
               right={0}
+              transition="all 150ms ease"
             >
               <Flex
                 justifyContent="space-between"
@@ -111,6 +121,18 @@ const Index = () => {
                   <CloseIcon w="3" h="3" />
                 </Button>
               </Flex>
+
+              <Box
+                w="full"
+                h="full"
+                minH="494px"
+                maxH={`calc((100vh - 115px) + ${calcYSpace}px)`}
+                overflowY="auto"
+                bgColor="white"
+                transition="all 150ms ease"
+              >
+                <CourseContent />
+              </Box>
             </Box>
           )}
 
@@ -121,7 +143,7 @@ const Index = () => {
               m="auto"
               bgColor="transparent"
             >
-              <Flex w="full" px={6} textAlign="left">
+              <Flex w="full" px={isLargeScreen ? 6 : 0} textAlign="left">
                 <DashboardTabs sidebar={sidebar} />
               </Flex>
             </Container>
