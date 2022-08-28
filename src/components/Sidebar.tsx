@@ -1,6 +1,6 @@
 import { useWindowScroll } from "react-use";
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, useMediaQuery } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import CourseContent from "./CourseContent";
 

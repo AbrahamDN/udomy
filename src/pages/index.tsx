@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
-import { Flex, Box, useMediaQuery, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, Box, useBreakpointValue } from "@chakra-ui/react";
 
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
