@@ -1,10 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createGlobalState, useEvent } from "react-use";
+import { useVideoFirstMount } from "../VideoSection";
+
 import { Box, Container, Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
+import VideoOverlay from "./VideoOverlay";
+
+export const usePaused = createGlobalState(false);
 
 const Video = () => {
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
+  const setPaused = usePaused()[1];
+  const setVideoFirstMount = useVideoFirstMount()[1];
+
   const videoContainer = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const video = videoRef.current;
@@ -13,6 +22,7 @@ const Video = () => {
     if (!video) return null;
     const videoPaused = video.paused;
     videoPaused ? video.play() : video.pause();
+    setVideoFirstMount(false);
   };
   const toggleMute = () => {
     if (!video) return null;
@@ -31,14 +41,16 @@ const Video = () => {
   return (
     <Flex
       ref={videoContainer}
-      bgColor="black"
-      color="white"
       w="full"
       h="full"
-      position="relative"
       alignItems="center"
       justifyContent="center"
+      bgColor="black"
+      color="white"
+      position="relative"
     >
+      <VideoOverlay videoRef={videoRef} />
+
       <video
         ref={videoRef}
         src="/course/01-Introduction/01- How Dropshipping Really Works.mp4"
@@ -46,6 +58,8 @@ const Video = () => {
         onClick={togglePlay}
         autoPlay={autoplay}
         muted={autoplay}
+        onPause={() => setPaused(true)}
+        onPlaying={() => setPaused(false)}
       />
     </Flex>
   );

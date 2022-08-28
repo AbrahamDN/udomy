@@ -38,6 +38,7 @@ const theme = extendTheme({
   colors: {
     white: "#fff",
     black: "#1c1d1f",
+    black_80: "hsl(220deg 5% 12% / 80%)",
     dark: "#1c1d1f",
     primary: {
       900: "#007121",

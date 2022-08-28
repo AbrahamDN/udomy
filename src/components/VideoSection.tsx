@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { createGlobalState } from "react-use";
+
 import { AspectRatio, Box, useBreakpointValue } from "@chakra-ui/react";
 import { useSidebar } from "../pages";
 import OpenSidebarButton from "./OpenSidebarButton";
@@ -9,9 +11,14 @@ type VideoSectionProps = {
   setSidebar?: (value: boolean) => any;
 };
 
+export const useVideoFirstMount = createGlobalState(false);
+
 const VideoSection = ({}: VideoSectionProps) => {
+  const setVideoFirstMount = useVideoFirstMount()[1];
   const [sidebar, setSidebar] = useSidebar();
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
+
+  useEffect(() => setVideoFirstMount(true), []);
   return (
     <AspectRatio
       flex={1}
