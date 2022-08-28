@@ -9,7 +9,6 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ setSidebar }: SidebarProps) => {
-  const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
   const [isSidebarBreak] = useMediaQuery(
     "(min-width: 61.31em) and (max-width: 75em)"
   );
@@ -20,7 +19,7 @@ const Sidebar = ({ setSidebar }: SidebarProps) => {
   return (
     <Box
       as="aside"
-      minW={isLargeScreen ? (isSidebarBreak ? "300px" : "25%") : "25%"}
+      minW={{ base: "25%", lg: isSidebarBreak ? "300px" : "25%" }}
       h="100%"
       borderLeft="1px solid"
       borderColor="gray.50"

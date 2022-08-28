@@ -35,13 +35,14 @@ const Index = () => {
 
       <Box as="main" position="relative" flex={1} h="full">
         <Flex
-          w={
-            sidebar && isLargeScreen
+          w={{
+            base: "full",
+            lg: sidebar
               ? isSidebarBreak
                 ? "calc(100% - 300px)"
                 : "75%"
-              : "full"
-          }
+              : "full",
+          }}
           h="full"
           flex={1}
           direction="column"

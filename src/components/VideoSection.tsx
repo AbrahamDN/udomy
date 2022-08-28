@@ -14,8 +14,8 @@ const VideoSection = ({ sidebar, setSidebar }: VideoSectionProps) => {
     <AspectRatio
       flex={1}
       maxW="full"
-      height={isLargeScreen && sidebar ? "60vh" : "auto"}
-      maxHeight={isLargeScreen && sidebar ? "60vh" : "80vh"}
+      height={{ base: "60vh", lg: sidebar ? "60vh" : "auto" }}
+      maxHeight={{ base: "60vh", lg: sidebar ? "60vh" : "80vh" }}
       minH="72"
       ratio={16 / 9}
     >

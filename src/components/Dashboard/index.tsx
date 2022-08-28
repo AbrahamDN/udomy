@@ -7,18 +7,15 @@ type DashboardProps = {
 };
 
 const Dashboard = ({ sidebar }: DashboardProps) => {
-  const [isDesktop] = useMediaQuery("(min-width: 90em)");
-  const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
-
   return (
     <Box flex={1} h="full">
       <Container
-        maxW={isDesktop ? "7xl" : "5xl"}
+        maxW={{ base: "5xl", xxl: "7xl" }}
         textAlign="left"
         m="auto"
         bgColor="transparent"
       >
-        <Flex w="full" px={isLargeScreen ? 6 : 0} textAlign="left">
+        <Flex w="full" px={{ base: 0, lg: 6 }} textAlign="left">
           <DashboardTabs sidebar={sidebar} />
         </Flex>
       </Container>
