@@ -12,8 +12,11 @@ const Video = () => {
     const videoPaused = video.paused;
     videoPaused ? video.play() : video.pause();
   };
-
-  useVideoKeyPress({ togglePlay });
+  const toggleMute = () => {
+    if (!video) return null;
+    video.muted = !video.muted;
+  };
+  +useVideoKeyPress({ togglePlay, toggleMute });
 
   return (
     <Flex
