@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import OpenSidebarButton from "../components/OpenSidebarButton";
 import Dashboard from "../components/Dashboard";
+import VideoSection from "../components/VideoSection";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -44,20 +45,7 @@ const Index = () => {
           flex={1}
           direction="column"
         >
-          <AspectRatio
-            flex={1}
-            maxW="full"
-            height={isLargeScreen && sidebar ? "60vh" : "auto"}
-            maxHeight={isLargeScreen && sidebar ? "60vh" : "80vh"}
-            minH="72"
-            ratio={16 / 9}
-          >
-            <Box bg="black" position="relative">
-              {isLargeScreen && !sidebar && (
-                <OpenSidebarButton setSidebar={setSidebar} />
-              )}
-            </Box>
-          </AspectRatio>
+          <VideoSection sidebar={sidebar} setSidebar={setSidebar} />
 
           {isLargeScreen && sidebar && <Sidebar setSidebar={setSidebar} />}
 
