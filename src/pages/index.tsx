@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
-import { Flex, Box, AspectRatio, useMediaQuery } from "@chakra-ui/react";
+import { Flex, Box, useMediaQuery, useBreakpointValue } from "@chakra-ui/react";
 
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import OpenSidebarButton from "../components/OpenSidebarButton";
 import Dashboard from "../components/Dashboard";
 import VideoSection from "../components/VideoSection";
 import { Footer } from "../components/Footer";
@@ -14,10 +13,7 @@ const Index = () => {
   const [sidebar, setSidebar] = useState(false);
   const [localSidebar, setLocalSidebar] = useLocalStorage("sidebar", false);
 
-  const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
-  const [isSidebarBreak] = useMediaQuery(
-    "(min-width: 61.31em) and (max-width: 75em)"
-  );
+  const isLargeScreen = useBreakpointValue({ base: false, lg: true });
 
   useEffect(() => {
     setSidebar(localSidebar);
@@ -37,11 +33,8 @@ const Index = () => {
         <Flex
           w={{
             base: "full",
-            lg: sidebar
-              ? isSidebarBreak
-                ? "calc(100% - 300px)"
-                : "75%"
-              : "full",
+            sidebarMin: sidebar ? "calc(100% - 300px)" : "full",
+            sidebarMax: sidebar ? "75%" : "full",
           }}
           h="full"
           flex={1}

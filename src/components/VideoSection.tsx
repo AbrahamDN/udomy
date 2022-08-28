@@ -1,4 +1,4 @@
-import { AspectRatio, Box, useMediaQuery } from "@chakra-ui/react";
+import { AspectRatio, Box, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import OpenSidebarButton from "./OpenSidebarButton";
 
@@ -8,8 +8,7 @@ type VideoSectionProps = {
 };
 
 const VideoSection = ({ sidebar, setSidebar }: VideoSectionProps) => {
-  const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
-
+  const isLargeScreen = useBreakpointValue({ base: false, lg: true });
   return (
     <AspectRatio
       flex={1}

@@ -9,17 +9,13 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ setSidebar }: SidebarProps) => {
-  const [isSidebarBreak] = useMediaQuery(
-    "(min-width: 61.31em) and (max-width: 75em)"
-  );
-
   const { y: scrollY } = useWindowScroll();
   const calcYSpace = scrollY <= 57 ? scrollY : 57;
 
   return (
     <Box
       as="aside"
-      minW={{ base: "25%", lg: isSidebarBreak ? "300px" : "25%" }}
+      minW={{ base: "25%", sidebarMin: "300px", sidebarMax: "25%" }}
       h="100%"
       borderLeft="1px solid"
       borderColor="gray.50"

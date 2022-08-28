@@ -1,15 +1,16 @@
 import { extendTheme } from "@chakra-ui/react";
-import { createBreakpoints } from "@chakra-ui/theme-tools";
 
 const fonts = { mono: `'Open Sans', monospace` };
 
-const breakpoints = createBreakpoints({
+const breakpoints = {
   sm: "40em",
   md: "52em",
   lg: "61.25em",
   xl: "80em",
   xxl: "90em",
-});
+  sidebarMin: "61.31em",
+  sidebarMax: "75em",
+};
 
 const theme = extendTheme({
   semanticTokens: {
