@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useWindowScroll } from "react-use";
+import { useState, useEffect } from "react";
+import { useWindowScroll, useLocalStorage } from "react-use";
 
 import {
   Text,
@@ -19,6 +19,8 @@ import CourseContent from "../components/CourseContent";
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
+  const [localSidebar, setLocalSidebar] = useLocalStorage("sidebar", false);
+
   const [isDesktop] = useMediaQuery("(min-width: 90em)");
   const [isLargeScreen] = useMediaQuery("(min-width: 61.25em)");
   const [isSidebarBreak] = useMediaQuery(
@@ -27,6 +29,14 @@ const Index = () => {
 
   const { y: scrollY } = useWindowScroll();
   const calcYSpace = scrollY <= 57 ? scrollY : 57;
+
+  useEffect(() => {
+    setSidebar(localSidebar);
+  }, []);
+
+  useEffect(() => {
+    setLocalSidebar(sidebar);
+  }, [sidebar]);
 
   return (
     <Flex minH="100vh" width="full" direction="column">
