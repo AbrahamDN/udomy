@@ -14,7 +14,7 @@ const CourseContent = () => {
   return (
     <Accordion defaultIndex={[0]} allowMultiple>
       {data.map((data, idx) => (
-        <AccordionItem key={`item-${idx}`} borderColor="gray.300">
+        <AccordionItem key={`accordion-item-${idx}`} borderColor="gray.300">
           <SectionButton
             title={data.title}
             itemsCompleted={data.itemsCompleted}
@@ -26,7 +26,7 @@ const CourseContent = () => {
             <Stack spacing={0} direction="column">
               {data.children.map((child, i) => (
                 <CurriculumItem
-                  key={`idx-${i}`}
+                  key={`curr-item-${i}`}
                   title={child.title}
                   type={child.type}
                   timeLength={child.timeLength}
