@@ -32,7 +32,8 @@ const Header = () => {
             <Heading
               as="h1"
               noOfLines={1}
-              style={{ fontSize: "1rem", fontWeight: "normal" }}
+              fontWeight="normal"
+              fontSize={{ base: "sm", xxl: "md" }}
             >
               Udomy Course environment
             </Heading>
