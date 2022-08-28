@@ -1,6 +1,9 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, theme as base } from "@chakra-ui/react";
 
-const fonts = { mono: `'Open Sans', monospace` };
+const fonts = {
+  heading: `Open Sans, ${base.fonts.heading}`,
+  body: `Open Sans, ${base.fonts.body}`,
+};
 
 const breakpoints = {
   sm: "40em",
