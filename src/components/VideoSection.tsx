@@ -1,14 +1,16 @@
-import { AspectRatio, Box, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
+import { AspectRatio, Box, useBreakpointValue } from "@chakra-ui/react";
+import { useSidebar } from "../pages";
 import OpenSidebarButton from "./OpenSidebarButton";
 import Video from "./Video";
 
 type VideoSectionProps = {
-  sidebar: boolean;
-  setSidebar: (value: boolean) => any;
+  sidebar?: boolean;
+  setSidebar?: (value: boolean) => any;
 };
 
-const VideoSection = ({ sidebar, setSidebar }: VideoSectionProps) => {
+const VideoSection = ({}: VideoSectionProps) => {
+  const [sidebar, setSidebar] = useSidebar();
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
   return (
     <AspectRatio

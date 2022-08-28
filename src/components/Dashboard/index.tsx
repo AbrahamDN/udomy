@@ -1,12 +1,14 @@
-import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
+import { Box, Container, Flex } from "@chakra-ui/react";
+import { useSidebar } from "../../pages";
 import DashboardTabs from "./DashboardTabs";
 
 type DashboardProps = {
-  sidebar: boolean;
+  sidebar?: boolean;
 };
 
-const Dashboard = ({ sidebar }: DashboardProps) => {
+const Dashboard = ({}: DashboardProps) => {
+  const [sidebar] = useSidebar();
   return (
     <Box flex={1} h="full">
       <Container

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocalStorage } from "react-use";
+import { useLocalStorage, createGlobalState } from "react-use";
 
 import { Flex, Box, useBreakpointValue } from "@chakra-ui/react";
 
@@ -9,8 +9,10 @@ import Dashboard from "../components/Dashboard";
 import VideoSection from "../components/VideoSection";
 import { Footer } from "../components/Footer";
 
+export const useSidebar = createGlobalState(false);
+
 const Index = () => {
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useSidebar();
   const [localSidebar, setLocalSidebar] = useLocalStorage("sidebar", false);
 
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
@@ -40,11 +42,11 @@ const Index = () => {
           flex={1}
           direction="column"
         >
-          <VideoSection sidebar={sidebar} setSidebar={setSidebar} />
+          <VideoSection />
 
-          {isLargeScreen && sidebar && <Sidebar setSidebar={setSidebar} />}
+          {isLargeScreen && sidebar && <Sidebar />}
 
-          <Dashboard sidebar={sidebar} />
+          <Dashboard />
 
           <Footer />
         </Flex>
