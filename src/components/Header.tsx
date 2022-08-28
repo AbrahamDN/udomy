@@ -1,4 +1,5 @@
 import { Box, Flex, Stack, Heading, Divider } from "@chakra-ui/react";
+import Image from "next/image";
 
 const Header = () => {
   return (
@@ -11,7 +12,14 @@ const Header = () => {
       color="white"
     >
       <Flex h={14} alignItems={"center"} gap={5}>
-        <Box style={{ fontWeight: "bold" }}>Logo</Box>
+        <Box style={{ fontWeight: "bold" }}>
+          <Image
+            src="/logoIcons/udomy-white.svg"
+            alt="Udomy logo"
+            width={91}
+            height={34}
+          />
+        </Box>
 
         <Divider maxH="6" orientation="vertical" borderColor="whiteAlpha.400" />
 
@@ -26,7 +34,7 @@ const Header = () => {
               noOfLines={1}
               style={{ fontSize: "1rem", fontWeight: "normal" }}
             >
-              Title Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Udomy Course environment
             </Heading>
           </Box>
           <Stack direction={"row"} spacing={7}></Stack>
