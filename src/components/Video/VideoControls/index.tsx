@@ -4,6 +4,7 @@ import VideoContext from "../../../../context/video.context";
 import { PauseIcon, PlayIcon, RewindIcon } from "../../Icons";
 import { usePaused } from "..";
 import { useVideoHoverActive } from "../VideoOverlay";
+import { VideoOverlayIconNames } from "../VideoOverlay/VideoOrverlay.types";
 
 const IconButton = (props: ButtonProps) => {
   const pseudoStyles = { bgColor: "transparent", opacity: 1 };
@@ -24,8 +25,17 @@ const VideoControls = () => {
   const { togglePlay, skip } = useContext(VideoContext).functions;
   const [paused] = usePaused();
   const setHoverActive = useVideoHoverActive()[1];
+  // const setVideoOverlayIcon = useVideoOverlayIcon()[1];
 
   const iconSize = { w: "8", h: "8" };
+
+  const handleButtonClick = (
+    func: (val?: any) => any,
+    icon?: VideoOverlayIconNames
+  ) => {
+    // if (icon) setVideoOverlayIcon(icon);
+    return func;
+  };
 
   return (
     <Container maxW="full" position="absolute" bottom="0">
@@ -37,15 +47,15 @@ const VideoControls = () => {
         onMouseEnter={() => setHoverActive(false)}
         onMouseLeave={() => setHoverActive(true)}
       >
-        <IconButton onClick={() => togglePlay()}>
+        <IconButton onClick={() => handleButtonClick(togglePlay())}>
           {paused ? <PlayIcon {...iconSize} /> : <PauseIcon w="7" h="7" />}
         </IconButton>
 
-        <IconButton onClick={() => skip(-5)}>
+        <IconButton onClick={() => handleButtonClick(skip(-5), "backSkip")}>
           <RewindIcon w="7" h="7" />
         </IconButton>
 
-        <IconButton onClick={() => skip(5)}>
+        <IconButton onClick={() => handleButtonClick(skip(5), "forwardSkip")}>
           <RewindIcon w="7" h="7" transform="scaleX(-1)" />
         </IconButton>
       </Flex>

@@ -4,19 +4,23 @@ import { useVideoFirstMount } from "../VideoSection";
 
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
-import VideoOverlay from "./VideoOverlay";
+import VideoOverlay, { useVideoOverlayIcon } from "./VideoOverlay";
 import VideoPlayButton from "./VideoPlayButton";
 import VideoContext from "../../../context/video.context";
+import { VideoOverlayIconNames } from "./VideoOverlay/VideoOrverlay.types";
 
 export const usePaused = createGlobalState(false);
 export const useHover = createGlobalState(false);
 export const useVideoLoading = createGlobalState(true);
+export const useVideoControlTriggered = createGlobalState(false);
 
 const Video = () => {
   // GLobal States
   const setVideoFirstMount = useVideoFirstMount()[1];
   const setHover = useHover()[1];
+  const setVideoOverlayIcon = useVideoOverlayIcon()[1];
   const [loading, setLoading] = useVideoLoading();
+  const setControlTriggered = useVideoControlTriggered()[1];
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
@@ -27,19 +31,27 @@ const Video = () => {
   const video = videoRef.current;
 
   // Functions
+  const triggerControl = (icon?: VideoOverlayIconNames) => {
+    if (icon) setVideoOverlayIcon(icon);
+    setControlTriggered((prev) => !prev);
+  };
+
   const togglePlay = () => {
     if (!video) return null;
     const videoPaused = video.paused;
     videoPaused ? video.play() : video.pause();
     setVideoFirstMount(false);
+    triggerControl(videoPaused ? "play" : "pause");
   };
   const toggleMute = () => {
     if (!video) return null;
     video.muted = !video.muted;
+    triggerControl(video.muted ? "mute" : "volume");
   };
   const skip = (duration: number) => {
     if (!video) return null;
     video.currentTime += duration;
+    triggerControl(duration < 0 ? "backSkip" : "forwardSkip");
   };
 
   const globalFunctions = { togglePlay, toggleMute, skip };

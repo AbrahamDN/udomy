@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Flex, keyframes } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import { PauseIcon, PlayIcon } from "../Icons";
 import { useVideoFirstMount } from "../VideoSection";
-import { usePaused } from ".";
-import { useVideoHoverActive } from "./VideoOverlay";
+import { useVideoHoverActive, useVideoOverlayIcon } from "./VideoOverlay";
+import VideoOverlayIcon from "./VideoOverlay/VideoOverlayIcon";
+import { useVideoControlTriggered } from ".";
 
-type VideoPlayButtonProps = { togglePlay: () => any };
+type VideoPlayButtonProps = { togglePlay?: () => any };
 
 const animationKeyframes = keyframes`
   0% { transform: scale(1) ; }
@@ -21,12 +21,15 @@ const animation = `${animationKeyframes} 250ms ease-in-out`;
 
 const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
   const [videoFirstMount] = useVideoFirstMount();
-  const [paused] = usePaused();
-  const [showIcon, setShowIcon] = useState(true);
+  const [videoOverlayIcon] = useVideoOverlayIcon();
   const setHoverActive = useVideoHoverActive()[1];
+  const [controlTriggered] = useVideoControlTriggered();
+
+  const [showIcon, setShowIcon] = useState(true);
 
   if (showIcon) setTimeout(() => setShowIcon(false), 200);
-  useEffect(() => setShowIcon(true), [paused]);
+  // useEffect(() => setShowIcon(true), [paused]);
+  useEffect(() => setShowIcon(true), [controlTriggered]);
 
   if (!(videoFirstMount || showIcon)) return null;
   return (
@@ -46,7 +49,11 @@ const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
       position="absolute"
       zIndex={10}
     >
-      {!paused ? <PlayIcon w={20} h={20} /> : <PauseIcon w={16} h={16} />}
+      {videoFirstMount ? (
+        <VideoOverlayIcon name="play" />
+      ) : (
+        <VideoOverlayIcon name={videoOverlayIcon} />
+      )}
     </Flex>
   );
 };
