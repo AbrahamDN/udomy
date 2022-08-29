@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import { Button, ButtonProps, Container, Flex } from "@chakra-ui/react";
 import VideoContext from "../../../../context/video.context";
 import { PauseIcon, PlayIcon, RewindIcon } from "../../Icons";
-import { usePaused } from "..";
-import { useVideoHoverActive } from "../VideoOverlay";
 import { VideoOverlayIconNames } from "../VideoOverlay/VideoOrverlay.types";
+import { usePaused, useVideoHoverActive } from "../../../globalStates";
 
 const IconButton = (props: ButtonProps) => {
   const pseudoStyles = { bgColor: "transparent", opacity: 1 };

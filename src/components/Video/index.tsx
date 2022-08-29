@@ -1,30 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
-import { createGlobalState, useEvent } from "react-use";
-import { useVideoFirstMount } from "../VideoSection";
 
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
-import VideoOverlay, { useVideoOverlayIcon } from "./VideoOverlay";
+import VideoOverlay from "./VideoOverlay";
 import VideoPlayButton from "./VideoPlayButton";
 import VideoContext from "../../../context/video.context";
 import { VideoOverlayIconNames } from "./VideoOverlay/VideoOrverlay.types";
-
-export const usePaused = createGlobalState(false);
-export const useHover = createGlobalState(false);
-export const useVideoLoading = createGlobalState(true);
-export const useVideoControlTriggered = createGlobalState(false);
+import {
+  useHover,
+  usePaused,
+  useVideoControlTriggered,
+  useVideoFirstMount,
+  useVideoLoading,
+  useVideoOverlayIcon,
+} from "../../globalStates";
 
 const Video = () => {
   // GLobal States
+  const [loading, setLoading] = useVideoLoading();
   const setVideoFirstMount = useVideoFirstMount()[1];
   const setHover = useHover()[1];
   const setVideoOverlayIcon = useVideoOverlayIcon()[1];
-  const [loading, setLoading] = useVideoLoading();
+  const setPaused = usePaused()[1];
   const setControlTriggered = useVideoControlTriggered()[1];
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
-  const setPaused = usePaused()[1];
+
   // Refs / Variables
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);

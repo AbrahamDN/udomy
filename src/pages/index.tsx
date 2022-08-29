@@ -8,8 +8,7 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../components/Dashboard";
 import VideoSection from "../components/VideoSection";
 import { Footer } from "../components/Footer";
-
-export const useSidebar = createGlobalState(false);
+import { useSidebar } from "../globalStates";
 
 const Index = () => {
   const [sidebar, setSidebar] = useSidebar();

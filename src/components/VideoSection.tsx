@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { createGlobalState } from "react-use";
+import React, { useEffect } from "react";
 
 import {
   AspectRatio,
@@ -8,16 +7,18 @@ import {
   Spinner,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useSidebar } from "../pages";
 import OpenSidebarButton from "./OpenSidebarButton";
-import Video, { useVideoLoading } from "./Video";
+import Video from "./Video";
+import {
+  useSidebar,
+  useVideoFirstMount,
+  useVideoLoading,
+} from "../globalStates";
 
 type VideoSectionProps = {
   sidebar?: boolean;
   setSidebar?: (value: boolean) => any;
 };
-
-export const useVideoFirstMount = createGlobalState(false);
 
 const VideoSection = ({}: VideoSectionProps) => {
   const setVideoFirstMount = useVideoFirstMount()[1];

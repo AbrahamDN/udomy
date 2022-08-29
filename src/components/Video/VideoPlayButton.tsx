@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Flex, keyframes } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import { useVideoFirstMount } from "../VideoSection";
-import { useVideoHoverActive, useVideoOverlayIcon } from "./VideoOverlay";
 import VideoOverlayIcon from "./VideoOverlay/VideoOverlayIcon";
-import { useVideoControlTriggered } from ".";
+import {
+  useVideoControlTriggered,
+  useVideoFirstMount,
+  useVideoHoverActive,
+  useVideoOverlayIcon,
+} from "../../globalStates";
 
 type VideoPlayButtonProps = { togglePlay?: () => any };
 

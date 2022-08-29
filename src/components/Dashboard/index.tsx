@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container, Flex } from "@chakra-ui/react";
-import { useSidebar } from "../../pages";
 import DashboardTabs from "./DashboardTabs";
+import { useSidebar } from "../../globalStates";
 
 type DashboardProps = {
   sidebar?: boolean;

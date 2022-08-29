@@ -3,7 +3,7 @@ import { useWindowScroll } from "react-use";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import CourseContent from "./CourseContent";
-import { useSidebar } from "../pages";
+import { useSidebar } from "../globalStates";
 
 type SidebarProps = {
   setSidebar?: (value: boolean) => any;

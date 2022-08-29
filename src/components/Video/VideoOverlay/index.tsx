@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { createGlobalState } from "react-use";
 import { Container, Flex, Text } from "@chakra-ui/react";
 import { useIdle } from "react-use";
 
 import VideoOverlayGradient from "./VideoOverlayGradient";
 import VideoControls from "../VideoControls";
-import { useHover } from "..";
-import { VideoOverlayIconNames } from "./VideoOrverlay.types";
+import { useHover, useVideoHoverActive } from "../../../globalStates";
 
 type VideoOverlayProps = {
   videoRef?: React.MutableRefObject<HTMLVideoElement>;
   togglePlay: () => any;
 };
-
-export const useVideoHoverActive = createGlobalState(true);
-export const useVideoOverlayIcon = createGlobalState<VideoOverlayIconNames>();
 
 const VideoOverlay = ({ togglePlay }: VideoOverlayProps) => {
   // const [videoFirstMount] = useVideoFirstMount();
