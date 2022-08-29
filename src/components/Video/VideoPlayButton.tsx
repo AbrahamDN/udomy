@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Flex, keyframes } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import { PauseIcon, PlayIcon } from "../../Icons";
-import { useVideoFirstMount } from "../../VideoSection";
-import { usePaused } from "..";
+import { PauseIcon, PlayIcon } from "../Icons";
+import { useVideoFirstMount } from "../VideoSection";
+import { usePaused } from ".";
 
-type VideoOverlayButtonProps = { togglePlay: () => any };
+type VideoPlayButtonProps = { togglePlay: () => any };
 
 const animationKeyframes = keyframes`
   0% { transform: scale(1) ; }
@@ -18,7 +18,7 @@ const animationKeyframes = keyframes`
 `;
 const animation = `${animationKeyframes} 250ms ease-in-out`;
 
-const VideoOverlayButton = ({ togglePlay }: VideoOverlayButtonProps) => {
+const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
   const [videoFirstMount] = useVideoFirstMount();
   const [paused] = usePaused();
   const [showIcon, setShowIcon] = useState(true);
@@ -39,10 +39,12 @@ const VideoOverlayButton = ({ togglePlay }: VideoOverlayButtonProps) => {
       borderRadius="full"
       bgColor={videoFirstMount ? "black" : "black_80"}
       color="white"
+      position="absolute"
+      zIndex={10}
     >
       {!paused ? <PlayIcon w={20} h={20} /> : <PauseIcon w={16} h={16} />}
     </Flex>
   );
 };
 
-export default VideoOverlayButton;
+export default VideoPlayButton;

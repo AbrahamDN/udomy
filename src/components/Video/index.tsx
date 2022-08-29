@@ -5,7 +5,7 @@ import { useVideoFirstMount } from "../VideoSection";
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
 import VideoOverlay from "./VideoOverlay";
-import VideoOverlayButton from "./VideoOverlay/VideoOverlayButton";
+import VideoPlayButton from "./VideoPlayButton";
 
 export const usePaused = createGlobalState(false);
 
@@ -51,9 +51,7 @@ const Video = () => {
       position="relative"
       onClick={togglePlay}
     >
-      <Flex position="absolute" zIndex="10">
-        <VideoOverlayButton togglePlay={togglePlay} />
-      </Flex>
+      <VideoPlayButton togglePlay={togglePlay} />
 
       <VideoOverlay videoRef={videoRef} togglePlay={togglePlay} />
 
