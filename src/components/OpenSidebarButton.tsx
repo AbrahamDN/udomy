@@ -26,6 +26,7 @@ const OpenSidebarButton = ({ setSidebar }: OpenSidebarButtonProps) => {
       transform="translateX(8.4rem)"
       _hover={{ bgColor: "darkGrey", transform: "translateX(0)" }}
       _focus={{ bgColor: "darkGrey", transform: "translateX(0)" }}
+      zIndex="overlay"
     >
       <Flex alignItems="center">
         <ArrowBackIcon w="6" h="6" />
