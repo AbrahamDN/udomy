@@ -37,8 +37,12 @@ const Video = () => {
     if (!video) return null;
     video.muted = !video.muted;
   };
+  const skip = (duration: number) => {
+    if (!video) return null;
+    video.currentTime += duration;
+  };
 
-  const globalFunctions = { togglePlay, toggleMute };
+  const globalFunctions = { togglePlay, toggleMute, skip };
 
   // Event Listeners
   useVideoKeyPress(globalFunctions);
@@ -57,7 +61,6 @@ const Video = () => {
   useEffect(() => {
     if (loading && video?.duration) setLoading(!Boolean(video.duration));
   });
-
   //   Component
   if (!mounted) return null;
   return (
