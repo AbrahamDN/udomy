@@ -18,6 +18,7 @@ const Sidebar = ({}: SidebarProps) => {
     <Box
       as="aside"
       minW={{ base: "25%", sidebarMin: "300px", sidebarMax: "25%" }}
+      w={{ base: "25%", sidebarMin: "300px", sidebarMax: "25%" }}
       h="100%"
       borderLeft="1px solid"
       borderColor="gray.50"
