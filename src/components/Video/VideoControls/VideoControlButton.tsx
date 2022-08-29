@@ -2,7 +2,7 @@ import { Button, Tooltip } from "@chakra-ui/react";
 import { VideoControlButtonProps } from "./VideoControls.types";
 
 const VideoControlButton = ({
-  toolLabel = "Pause",
+  toolLabel,
   ...props
 }: VideoControlButtonProps) => {
   const pseudoStyles = { bgColor: "transparent", opacity: 1 };

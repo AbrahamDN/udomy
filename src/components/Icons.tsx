@@ -330,3 +330,15 @@ export const VolumeOffIcon = createIcon({
     />
   ),
 });
+
+export const PlusIcon = createIcon({
+  displayName: "PlusIcon",
+  viewBox: "0 0 24 24",
+  path: <path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z" />,
+});
+
+export const MinusIcon = createIcon({
+  displayName: "PlusIcon",
+  viewBox: "0 0 24 24",
+  path: <path fill="currentColor" d="M5 11h14v2H5z" />,
+});

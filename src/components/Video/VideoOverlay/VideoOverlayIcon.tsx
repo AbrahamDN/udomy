@@ -1,9 +1,10 @@
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import {
   FullscreenExitIcon,
   FullscreenIcon,
+  MinusIcon,
   PauseIcon,
   PlayIcon,
+  PlusIcon,
   RewindIcon,
   VolumeHighIcon,
   VolumeLowIcon,
@@ -24,9 +25,9 @@ const VideoOverlayIcon = ({ name, ...otherProps }: VideoOverlayIconProps) => {
         <RewindIcon w="14" h="14" transform="scaleX(-1)" {...otherProps} />
       );
     case "rateDrop":
-      return <MinusIcon w="14" h="14" {...otherProps} />;
+      return <MinusIcon w="16" h="16" {...otherProps} />;
     case "rateIncrease":
-      return <AddIcon w="16" h="16" {...otherProps} />;
+      return <PlusIcon w="16" h="16" {...otherProps} />;
     case "mute":
       return <VolumeOffIcon w="16" h="16" {...otherProps} />;
     case "volumeLow":

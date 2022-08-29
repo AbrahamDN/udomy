@@ -1,5 +1,4 @@
 import { useEventListener } from "@chakra-ui/react";
-import React from "react";
 import { useVideoKeyPressProps } from "./useVideoKeyPress.types";
 
 const useVideoKeyPress = (functions: useVideoKeyPressProps) => {
@@ -19,7 +18,6 @@ const useVideoKeyPress = (functions: useVideoKeyPressProps) => {
       case "k":
       case "p":
         e.preventDefault();
-        console.info(e.key);
         if (togglePlay) togglePlay();
         break;
       case "f":
@@ -48,7 +46,6 @@ const useVideoKeyPress = (functions: useVideoKeyPressProps) => {
     }
   };
   useEventListener("keydown", onKeyDown);
-  return;
 };
 
 export default useVideoKeyPress;

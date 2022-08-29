@@ -1,17 +1,19 @@
 import React from "react";
+import { VideoOverlayIconNames } from "../src/components/Video/VideoOverlay/VideoOrverlay.types";
 
 type VideoContextProps = {
   videoContainerRef: React.MutableRefObject<HTMLDivElement>;
   videoRef: React.MutableRefObject<HTMLVideoElement>;
   loading: boolean;
   functions: {
-    togglePlay?: () => any;
-    toggleFullScreen?: () => any;
-    toggleTheatre?: () => any;
-    toggleMiniPlayer?: () => any;
-    toggleMute?: () => any;
     skip?: (value?: any) => any;
     toggleCaptions?: () => any;
+    toggleFullScreen?: () => any;
+    toggleMiniPlayer?: () => any;
+    toggleMute?: () => any;
+    togglePlay?: () => any;
+    toggleTheatre?: () => any;
+    triggerControl?: (icon?: VideoOverlayIconNames) => any;
   };
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useEvent } from "react-use";
 
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
@@ -61,6 +62,19 @@ const Video = () => {
 
   // Event Listeners
   useVideoKeyPress(sharedFunctions);
+
+  useEvent(
+    "ratechange",
+    () => {
+      if (video)
+        triggerControl(
+          video.defaultPlaybackRate <= video.playbackRate
+            ? "rateIncrease"
+            : "rateDrop"
+        );
+    },
+    video
+  );
 
   // Life cycle events
   useEffect(() => setMounted(true), []);

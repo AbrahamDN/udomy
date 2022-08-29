@@ -11,4 +11,5 @@ export const //
   useVideoFirstMount = createGlobalState(false),
   useVideoHoverActive = createGlobalState(true),
   useVideoLoading = createGlobalState(true),
-  useVideoOverlayIcon = createGlobalState<VideoOverlayIconNames>();
+  useVideoOverlayIcon = createGlobalState<VideoOverlayIconNames>(),
+  useVideoRate = createGlobalState(1);
