@@ -5,11 +5,7 @@ import { useIdle } from "react-use";
 import VideoOverlayGradient from "./VideoOverlayGradient";
 import VideoControls from "../VideoControls";
 import { useHover, useVideoHoverActive } from "../../../globalStates";
-
-type VideoOverlayProps = {
-  videoRef?: React.MutableRefObject<HTMLVideoElement>;
-  togglePlay: () => any;
-};
+import { VideoOverlayProps } from "./VideoOrverlay.types";
 
 const VideoOverlay = ({ togglePlay }: VideoOverlayProps) => {
   // const [videoFirstMount] = useVideoFirstMount();

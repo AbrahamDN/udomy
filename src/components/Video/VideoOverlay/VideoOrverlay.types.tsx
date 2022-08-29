@@ -1,4 +1,5 @@
-import { IconProps } from "@chakra-ui/react";
+import { FlexProps, IconProps } from "@chakra-ui/react";
+import { MutableRefObject } from "react";
 
 export type VideoOverlayIconNames =
   | "backSkip"
@@ -15,4 +16,16 @@ export type VideoOverlayIconNames =
 
 export type VideoOverlayIconProps = IconProps & {
   name: VideoOverlayIconNames | "";
+};
+
+export type VideoOverlayGradientProps = FlexProps & {
+  children?: any;
+  flip?: boolean;
+  opacity?: number | {};
+  transition?: string | {};
+};
+
+export type VideoOverlayProps = {
+  videoRef?: MutableRefObject<HTMLVideoElement>;
+  togglePlay: () => any;
 };
