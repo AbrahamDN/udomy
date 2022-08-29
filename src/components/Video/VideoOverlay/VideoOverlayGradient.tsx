@@ -23,6 +23,7 @@ const VideoOverlayGradient = ({
       w="full"
       h="7.8rem"
       bgGradient={flip ? bgGradientFlip : bgGradient}
+      pointerEvents="none"
       {...otherProps}
     >
       {children}

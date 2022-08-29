@@ -30,22 +30,25 @@ const VideoOverlay = ({ togglePlay }: VideoOverlayProps) => {
 
   return (
     <Flex
-      onClick={togglePlay}
       w="full"
       h="full"
       alignItems="center"
       justifyContent="center"
       zIndex={1}
       pointerEvents={isIdle ? "none" : "visible"}
-      opacity={hoverActive && (isIdle || !hover) ? 0 : 1}
+      opacity={1}
       transition="all 500ms ease-in"
       position="relative"
     >
+      <Flex onClick={togglePlay} w="full" h="full" position="absolute" />
       <VideoOverlayGradient position="absolute" top="0">
         <Container mx="xl" mt={4}>
-          <Text>Title of the video</Text>
+          <Text w="fit-content" pointerEvents="auto">
+            Title of the video
+          </Text>
         </Container>
       </VideoOverlayGradient>
+      <VideoOverlayGradient flip position="absolute" bottom="0" />
 
       <VideoControls />
     </Flex>
