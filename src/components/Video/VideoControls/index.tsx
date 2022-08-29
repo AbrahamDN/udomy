@@ -1,24 +1,10 @@
 import React, { useContext } from "react";
-import { Button, ButtonProps, Container, Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import VideoContext from "../../../../context/video.context";
 import { PauseIcon, PlayIcon, RewindIcon } from "../../Icons";
 import { VideoOverlayIconNames } from "../VideoOverlay/VideoOrverlay.types";
 import { usePaused, useVideoHoverActive } from "../../../globalStates";
-
-const IconButton = (props: ButtonProps) => {
-  const pseudoStyles = { bgColor: "transparent", opacity: 1 };
-  return (
-    <Button
-      bgColor="transparent"
-      opacity={0.8}
-      p="0"
-      m="0"
-      _hover={pseudoStyles}
-      _focus={pseudoStyles}
-      {...props}
-    />
-  );
-};
+import VideoControlButton from "./VideoControlButton";
 
 const VideoControls = () => {
   const { togglePlay, skip } = useContext(VideoContext).functions;
@@ -46,17 +32,21 @@ const VideoControls = () => {
         onMouseEnter={() => setHoverActive(false)}
         onMouseLeave={() => setHoverActive(true)}
       >
-        <IconButton onClick={() => handleButtonClick(togglePlay())}>
+        <VideoControlButton onClick={() => handleButtonClick(togglePlay())}>
           {paused ? <PlayIcon {...iconSize} /> : <PauseIcon w="7" h="7" />}
-        </IconButton>
+        </VideoControlButton>
 
-        <IconButton onClick={() => handleButtonClick(skip(-5), "backSkip")}>
+        <VideoControlButton
+          onClick={() => handleButtonClick(skip(-5), "backSkip")}
+        >
           <RewindIcon w="7" h="7" />
-        </IconButton>
+        </VideoControlButton>
 
-        <IconButton onClick={() => handleButtonClick(skip(5), "forwardSkip")}>
+        <VideoControlButton
+          onClick={() => handleButtonClick(skip(5), "forwardSkip")}
+        >
           <RewindIcon w="7" h="7" transform="scaleX(-1)" />
-        </IconButton>
+        </VideoControlButton>
       </Flex>
     </Container>
   );

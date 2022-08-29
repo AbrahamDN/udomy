@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocalStorage, createGlobalState } from "react-use";
+import { useEffect } from "react";
+import { useLocalStorage } from "react-use";
 
 import { Flex, Box, useBreakpointValue } from "@chakra-ui/react";
 
