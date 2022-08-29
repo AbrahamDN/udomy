@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { createGlobalState } from "react-use";
+import { createGlobalState, useEvent } from "react-use";
 import { useVideoFirstMount } from "../VideoSection";
 
 import { Flex } from "@chakra-ui/react";
@@ -10,11 +10,13 @@ import VideoContext from "../../../context/video.context";
 
 export const usePaused = createGlobalState(false);
 export const useHover = createGlobalState(false);
+export const useVideoLoading = createGlobalState(true);
 
 const Video = () => {
   // GLobal States
   const setVideoFirstMount = useVideoFirstMount()[1];
   const setHover = useHover()[1];
+  const [loading, setLoading] = useVideoLoading();
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
@@ -41,18 +43,31 @@ const Video = () => {
   // Event Listeners
   useVideoKeyPress(globalFunctions);
 
-  // Global State Effects
+  // Life cycle events
   useEffect(() => setMounted(true), []);
   useEffect(() => {
     if (typeof window !== "undefined")
       setAutoplay(JSON.parse(window.localStorage.getItem("autoplay")));
   }, [mounted]);
 
+  // useEffect(() => {
+  //   if (video?.duration) setLoading(false);
+  // }, [video?.duration]);
+
+  useEffect(() => {
+    if (loading && video?.duration) setLoading(!Boolean(video.duration));
+  });
+
   //   Component
   if (!mounted) return null;
   return (
     <VideoContext.Provider
-      value={{ videoContainerRef, videoRef, functions: globalFunctions }}
+      value={{
+        videoContainerRef,
+        videoRef,
+        loading,
+        functions: globalFunctions,
+      }}
     >
       <Flex
         ref={videoContainerRef}
@@ -66,7 +81,7 @@ const Video = () => {
         color="white"
         position="relative"
       >
-        <VideoPlayButton togglePlay={togglePlay} />
+        {!loading && <VideoPlayButton togglePlay={togglePlay} />}
 
         <VideoOverlay videoRef={videoRef} togglePlay={togglePlay} />
 

@@ -3,6 +3,7 @@ import React from "react";
 type VideoContextProps = {
   videoContainerRef: React.MutableRefObject<HTMLDivElement>;
   videoRef: React.MutableRefObject<HTMLVideoElement>;
+  loading: boolean;
   functions: {
     togglePlay?: () => any;
     toggleFullScreen?: () => any;
