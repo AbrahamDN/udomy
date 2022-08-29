@@ -38,28 +38,29 @@ const Video = () => {
     setControlTriggered((prev) => !prev);
   };
 
-  const togglePlay = () => {
-    if (!video) return null;
-    const videoPaused = video.paused;
-    videoPaused ? video.play() : video.pause();
-    setVideoFirstMount(false);
-    triggerControl(videoPaused ? "play" : "pause");
+  const sharedFunctions = {
+    togglePlay: () => {
+      if (!video) return null;
+      const videoPaused = video.paused;
+      videoPaused ? video.play() : video.pause();
+      setVideoFirstMount(false);
+      triggerControl(videoPaused ? "play" : "pause");
+    },
+    toggleMute: () => {
+      if (!video) return null;
+      video.muted = !video.muted;
+      triggerControl(video.muted ? "mute" : "volume");
+    },
+    skip: (duration: number) => {
+      if (!video) return null;
+      video.currentTime += duration;
+      triggerControl(duration < 0 ? "backSkip" : "forwardSkip");
+    },
   };
-  const toggleMute = () => {
-    if (!video) return null;
-    video.muted = !video.muted;
-    triggerControl(video.muted ? "mute" : "volume");
-  };
-  const skip = (duration: number) => {
-    if (!video) return null;
-    video.currentTime += duration;
-    triggerControl(duration < 0 ? "backSkip" : "forwardSkip");
-  };
-
-  const globalFunctions = { togglePlay, toggleMute, skip };
+  const { togglePlay } = sharedFunctions;
 
   // Event Listeners
-  useVideoKeyPress(globalFunctions);
+  useVideoKeyPress(sharedFunctions);
 
   // Life cycle events
   useEffect(() => setMounted(true), []);
@@ -83,7 +84,7 @@ const Video = () => {
         videoContainerRef,
         videoRef,
         loading,
-        functions: globalFunctions,
+        functions: sharedFunctions,
       }}
     >
       <Flex
