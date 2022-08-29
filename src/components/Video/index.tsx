@@ -49,7 +49,6 @@ const Video = () => {
       bgColor="black"
       color="white"
       position="relative"
-      onClick={togglePlay}
     >
       <VideoPlayButton togglePlay={togglePlay} />
 
@@ -63,6 +62,7 @@ const Video = () => {
         muted={autoplay}
         onPause={() => setPaused(true)}
         onPlaying={() => setPaused(false)}
+        onClick={togglePlay}
       />
     </Flex>
   );

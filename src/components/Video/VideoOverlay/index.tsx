@@ -9,7 +9,7 @@ type VideoOverlayProps = {
   togglePlay: () => any;
 };
 
-const VideoOverlay = ({}: VideoOverlayProps) => {
+const VideoOverlay = ({ togglePlay }: VideoOverlayProps) => {
   // const [videoFirstMount] = useVideoFirstMount();
   // const [paused] = usePaused();
   const [hover, setHover] = useState(false);
@@ -19,6 +19,7 @@ const VideoOverlay = ({}: VideoOverlayProps) => {
 
   return (
     <Flex
+      onClick={togglePlay}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       w="full"
