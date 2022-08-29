@@ -40,6 +40,7 @@ const theme = extendTheme({
     black: "#1c1d1f",
     black_80: "hsl(220deg 5% 12% / 80%)",
     dark: "#1c1d1f",
+    brand: "#47cf73",
     primary: {
       900: "#007121",
       800: "#009135",

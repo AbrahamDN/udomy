@@ -9,13 +9,16 @@ import VideoPlayButton from "./VideoPlayButton";
 import VideoContext from "../../../context/video.context";
 
 export const usePaused = createGlobalState(false);
+export const useHover = createGlobalState(false);
 
 const Video = () => {
+  // GLobal States
+  const setVideoFirstMount = useVideoFirstMount()[1];
+  const setHover = useHover()[1];
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
   const setPaused = usePaused()[1];
-  const setVideoFirstMount = useVideoFirstMount()[1];
   // Refs / Variables
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -53,6 +56,8 @@ const Video = () => {
     >
       <Flex
         ref={videoContainerRef}
+        onMouseOver={() => setHover(true)}
+        onMouseLeave={() => setTimeout(() => setHover(() => false), 2000)}
         w="full"
         h="full"
         alignItems="center"

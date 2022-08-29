@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { PauseIcon, PlayIcon } from "../Icons";
 import { useVideoFirstMount } from "../VideoSection";
 import { usePaused } from ".";
+import { useVideoHoverActive } from "./VideoOverlay";
 
 type VideoPlayButtonProps = { togglePlay: () => any };
 
@@ -22,6 +23,7 @@ const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
   const [videoFirstMount] = useVideoFirstMount();
   const [paused] = usePaused();
   const [showIcon, setShowIcon] = useState(true);
+  const setHoverActive = useVideoHoverActive()[1];
 
   if (showIcon) setTimeout(() => setShowIcon(false), 200);
   useEffect(() => setShowIcon(true), [paused]);
@@ -29,8 +31,10 @@ const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
   if (!(videoFirstMount || showIcon)) return null;
   return (
     <Flex
-      as={videoFirstMount ? motion.button : motion.div}
       onClick={videoFirstMount ? togglePlay : null}
+      onMouseEnter={() => setHoverActive(false)}
+      onMouseLeave={() => setHoverActive(true)}
+      as={videoFirstMount ? motion.button : motion.div}
       animation={animation}
       w={24}
       h={24}
