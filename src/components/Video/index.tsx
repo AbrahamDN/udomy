@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { createGlobalState, useEvent } from "react-use";
+import { createGlobalState } from "react-use";
 import { useVideoFirstMount } from "../VideoSection";
 
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
 import VideoOverlay from "./VideoOverlay";
+import VideoOverlayButton from "./VideoOverlay/VideoOverlayButton";
 
 export const usePaused = createGlobalState(false);
 
@@ -48,14 +49,18 @@ const Video = () => {
       bgColor="black"
       color="white"
       position="relative"
+      onClick={togglePlay}
     >
-      <VideoOverlay videoRef={videoRef} />
+      <Flex position="absolute" zIndex="10">
+        <VideoOverlayButton togglePlay={togglePlay} />
+      </Flex>
+
+      <VideoOverlay videoRef={videoRef} togglePlay={togglePlay} />
 
       <video
         ref={videoRef}
         src="/course/01-Introduction/01- How Dropshipping Really Works.mp4"
         style={{ position: "absolute", width: "100%", height: "100%" }}
-        onClick={togglePlay}
         autoPlay={autoplay}
         muted={autoplay}
         onPause={() => setPaused(true)}
