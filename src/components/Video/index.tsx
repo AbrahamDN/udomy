@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
 import VideoOverlay from "./VideoOverlay";
-import VideoPlayButton from "./VideoPlayButton";
+import VideoControlPopover from "./VideoControls/VideoControlPopOver";
 import VideoContext from "../../../context/video.context";
 import { VideoOverlayIconNames } from "./VideoOverlay/VideoOrverlay.types";
 import {
@@ -69,13 +69,10 @@ const Video = () => {
       setAutoplay(JSON.parse(window.localStorage.getItem("autoplay")));
   }, [mounted]);
 
-  // useEffect(() => {
-  //   if (video?.duration) setLoading(false);
-  // }, [video?.duration]);
-
   useEffect(() => {
     if (loading && video?.duration) setLoading(!Boolean(video.duration));
   });
+
   //   Component
   if (!mounted) return null;
   return (
@@ -99,9 +96,9 @@ const Video = () => {
         color="white"
         position="relative"
       >
-        {!loading && <VideoPlayButton togglePlay={togglePlay} />}
+        {!loading && <VideoControlPopover />}
 
-        <VideoOverlay videoRef={videoRef} togglePlay={togglePlay} />
+        <VideoOverlay />
 
         <video
           ref={videoRef}

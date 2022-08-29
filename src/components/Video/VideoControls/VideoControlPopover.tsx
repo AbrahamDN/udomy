@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Flex, keyframes } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import VideoOverlayIcon from "./VideoOverlay/VideoOverlayIcon";
+import VideoOverlayIcon from "../VideoOverlay/VideoOverlayIcon";
 import {
   useVideoControlTriggered,
   useVideoFirstMount,
   useVideoHoverActive,
   useVideoOverlayIcon,
-} from "../../globalStates";
-
-type VideoPlayButtonProps = { togglePlay?: () => any };
+} from "../../../globalStates";
+import VideoContext from "../../../../context/video.context";
 
 const animationKeyframes = keyframes`
   0% { transform: scale(1) ; }
@@ -22,7 +21,8 @@ const animationKeyframes = keyframes`
 `;
 const animation = `${animationKeyframes} 250ms ease-in-out`;
 
-const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
+const VideoControlPopover = () => {
+  const togglePlay = useContext(VideoContext).functions.togglePlay;
   const [videoFirstMount] = useVideoFirstMount();
   const [videoOverlayIcon] = useVideoOverlayIcon();
   const setHoverActive = useVideoHoverActive()[1];
@@ -61,4 +61,4 @@ const VideoPlayButton = ({ togglePlay }: VideoPlayButtonProps) => {
   );
 };
 
-export default VideoPlayButton;
+export default VideoControlPopover;

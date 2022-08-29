@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Flex, Text } from "@chakra-ui/react";
 import { useIdle } from "react-use";
 
 import VideoOverlayGradient from "./VideoOverlayGradient";
 import VideoControls from "../VideoControls";
 import { useHover, useVideoHoverActive } from "../../../globalStates";
-import { VideoOverlayProps } from "./VideoOrverlay.types";
+import VideoContext from "../../../../context/video.context";
 
-const VideoOverlay = ({ togglePlay }: VideoOverlayProps) => {
-  // const [videoFirstMount] = useVideoFirstMount();
-  // const [paused] = usePaused();
+const VideoOverlay = () => {
+  const videoRef = useContext(VideoContext).videoRef;
+  const togglePlay = useContext(VideoContext).functions.togglePlay;
+
   const [hover] = useHover();
   const [hoverActive] = useVideoHoverActive();
   const [isIdle, setIsIdle] = useState(false);
