@@ -16,23 +16,35 @@ const breakpoints = {
 };
 
 const theme = extendTheme({
-  semanticTokens: {
-    colors: {
-      text: {
-        default: "#1c1d1f",
-        _dark: "#fff",
-      },
-      heroGradientStart: {
-        default: "#7928CA",
-        _dark: "#e3a7f9",
-      },
-      heroGradientEnd: {
-        default: "#FF0080",
-        _dark: "#fbec8f",
+  components: {
+    Tooltip: {
+      baseStyle: {
+        bgColor: "black",
+        borderRadius: "0",
+        border: "1px solid",
+        borderColor: "whiteAlpha.500",
       },
     },
-    radii: {
-      button: "12px",
+    Button: {
+      baseStyle: {
+        bgColor: "black",
+        border: "1px solid",
+        borderColor: "whiteAlpha.500",
+        borderRadius: "0",
+        color: "white",
+      },
+      variants: {
+        base: {},
+        secondary: {
+          bgColor: "transparent",
+          border: "none",
+          borderColor: "none",
+          borderRadius: "0",
+        },
+      },
+      defaultProps: {
+        variant: "base",
+      },
     },
   },
   colors: {

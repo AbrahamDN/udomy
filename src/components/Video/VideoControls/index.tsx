@@ -46,16 +46,7 @@ const VideoControls = () => {
         </VideoControlButton>
 
         <Menu>
-          <Tooltip
-            label="Playback rate"
-            placement="top"
-            bgColor="black"
-            borderRadius="0"
-            border="1px solid"
-            borderColor="whiteAlpha.500"
-            p="2"
-            mb="4"
-          >
+          <Tooltip label="Playback rate" placement="top" p="2" mb="4">
             <MenuButton
               as={Button}
               h="fit-content"

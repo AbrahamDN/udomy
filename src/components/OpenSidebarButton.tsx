@@ -15,12 +15,7 @@ const OpenSidebarButton = ({ setSidebar }: OpenSidebarButtonProps) => {
       right={0}
       top="2"
       minH={12}
-      bgColor="black"
-      color="white"
       fontWeight="bold"
-      borderRadius={0}
-      border="1px solid"
-      borderColor="whiteAlpha.500"
       px={3}
       transition="all 300ms ease-in-out"
       transform="translateX(8.4rem)"
