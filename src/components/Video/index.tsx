@@ -4,17 +4,19 @@ import { useEvent } from "react-use";
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
 import VideoOverlay from "./VideoOverlay";
-import VideoControlPopover from "./VideoControls/VideoControlPopOver";
 import VideoContext from "../../../context/video.context";
 import { VideoOverlayIconNames } from "./VideoOverlay/VideoOrverlay.types";
 import {
   useHover,
   usePaused,
   useVideoControlTriggered,
+  useVideoCurrentTime,
   useVideoFirstMount,
   useVideoLoading,
   useVideoOverlayIcon,
 } from "../../globalStates";
+import VideoControlPopover from "./VideoControls/VideoControlPopover";
+import formatDuration from "./utils/formatDuration";
 
 const Video = () => {
   // GLobal States
@@ -24,6 +26,7 @@ const Video = () => {
   const setVideoOverlayIcon = useVideoOverlayIcon()[1];
   const setPaused = usePaused()[1];
   const setControlTriggered = useVideoControlTriggered()[1];
+  const setCurrentTime = useVideoCurrentTime()[1];
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
@@ -62,6 +65,13 @@ const Video = () => {
 
   // Event Listeners
   useVideoKeyPress(sharedFunctions);
+
+  useEvent(
+    "timeupdate",
+    () =>
+      video.currentTime && setCurrentTime(formatDuration(video.currentTime)),
+    video
+  );
 
   useEvent(
     "ratechange",

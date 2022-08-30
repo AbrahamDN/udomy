@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { useEvent } from "react-use";
+
 import {
   Button,
   Container,
@@ -6,25 +8,36 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Text,
   Tooltip,
 } from "@chakra-ui/react";
 import VideoContext from "../../../../context/video.context";
 import { PauseIcon, PlayIcon, RewindIcon } from "../../Icons";
 import {
   usePaused,
+  useVideoCurrentTime,
   useVideoHoverActive,
   useVideoRate,
 } from "../../../globalStates";
 import VideoControlButton from "./VideoControlButton";
 import VideoRateItem from "./VideoRateItem";
+import formatDuration from "../utils/formatDuration";
 
 const VideoControls = () => {
-  const { togglePlay, skip } = useContext(VideoContext).functions;
+  const {
+    videoRef,
+    functions: { togglePlay, skip },
+  } = useContext(VideoContext);
   const setHoverActive = useVideoHoverActive()[1];
   const [paused] = usePaused();
   const [speedRate] = useVideoRate();
+  const [currentTime] = useVideoCurrentTime();
+
+  const video = videoRef.current;
 
   const iconSize = { w: "8", h: "8" };
+
+  const duration = video?.duration ? formatDuration(video.duration) : "00:00";
 
   return (
     <Container maxW="full" position="absolute" bottom="0">
@@ -87,6 +100,10 @@ const VideoControls = () => {
         <VideoControlButton onClick={() => skip(5)}>
           <RewindIcon w="6" h="6" transform="scaleX(-1)" />
         </VideoControlButton>
+
+        <Text fontWeight="bold">
+          {currentTime || "00:00"} / {duration}
+        </Text>
       </Flex>
     </Container>
   );

@@ -8,6 +8,7 @@ export const //
   useHover = createGlobalState(false),
   usePaused = createGlobalState(false),
   useVideoControlTriggered = createGlobalState(false),
+  useVideoCurrentTime = createGlobalState(""),
   useVideoFirstMount = createGlobalState(false),
   useVideoHoverActive = createGlobalState(true),
   useVideoLoading = createGlobalState(true),
