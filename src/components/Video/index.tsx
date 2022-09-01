@@ -21,7 +21,7 @@ import formatDuration from "./utils/formatDuration";
 const Video = () => {
   // GLobal States
   const [loading, setLoading] = useVideoLoading();
-  const setVideoFirstMount = useVideoFirstMount()[1];
+  const [videoFirstMount, setVideoFirstMount] = useVideoFirstMount();
   const setHover = useHover()[1];
   const setVideoOverlayIcon = useVideoOverlayIcon()[1];
   const setPaused = usePaused()[1];
@@ -153,7 +153,7 @@ const Video = () => {
         <video
           ref={videoRef}
           style={{ position: "absolute", width: "100%", height: "100%" }}
-          autoPlay={autoplay}
+          autoPlay={!videoFirstMount && autoplay}
           muted={autoplay}
           onPause={() => setPaused(true)}
           onPlaying={() => setPaused(false)}
