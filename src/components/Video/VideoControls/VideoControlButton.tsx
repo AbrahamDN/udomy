@@ -18,7 +18,7 @@ const VideoControlButton = ({
       mb="2"
     >
       <Button
-        bgColor="transparent"
+        variant="secondary"
         opacity={0.8}
         p="0"
         m="0"

@@ -5,6 +5,10 @@ type VideoContextProps = {
   videoContainerRef: React.MutableRefObject<HTMLDivElement>;
   videoRef: React.MutableRefObject<HTMLVideoElement>;
   loading: boolean;
+  volumeState: {
+    volume: number;
+    setVolume: React.Dispatch<React.SetStateAction<number>>;
+  };
   functions: {
     skip?: (value?: any) => any;
     toggleCaptions?: () => any;

@@ -4,6 +4,7 @@ export type useVideoKeyPressProps = {
   toggleTheatre?: () => any;
   toggleMiniPlayer?: () => any;
   toggleMute?: () => any;
-  skip?: (value?: any) => any;
+  skip?: (duration: number) => any;
   toggleCaptions?: () => any;
+  changeVolume?: (volume: number) => any;
 };

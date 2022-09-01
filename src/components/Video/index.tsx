@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useEvent } from "react-use";
+import { useEvent, useLocalStorage } from "react-use";
 
 import { Flex } from "@chakra-ui/react";
 import useVideoKeyPress from "./hooks/useVideoKeyPress";
@@ -27,6 +27,8 @@ const Video = () => {
   const setPaused = usePaused()[1];
   const setControlTriggered = useVideoControlTriggered()[1];
   const setCurrentTime = useVideoCurrentTime()[1];
+
+  const [volume, setVolume] = useLocalStorage("volume", 1);
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
@@ -59,6 +61,16 @@ const Video = () => {
       if (!video) return null;
       video.currentTime += duration;
       triggerControl(duration < 0 ? "backSkip" : "forwardSkip");
+    },
+    changeVolume: (volume: number) => {
+      if (!video) return;
+      volume = volume / 100;
+      const newVolume = video.volume + volume;
+      const sortVolume = parseFloat(
+        (newVolume > 1 ? 1 : newVolume < 0 ? 0 : newVolume).toFixed(2)
+      );
+      setVolume(sortVolume);
+      triggerControl("volume");
     },
   };
   const { togglePlay } = sharedFunctions;
@@ -97,6 +109,12 @@ const Video = () => {
     if (loading && video?.duration) setLoading(!Boolean(video.duration));
   });
 
+  useEffect(() => {
+    if (video) {
+      video.volume = volume;
+    }
+  }, [volume]);
+
   //   Component
   if (!mounted) return null;
   return (
@@ -105,7 +123,8 @@ const Video = () => {
         videoContainerRef,
         videoRef,
         loading,
-        functions: sharedFunctions,
+        volumeState: { volume, setVolume },
+        functions: { triggerControl, ...sharedFunctions },
       }}
     >
       <Flex

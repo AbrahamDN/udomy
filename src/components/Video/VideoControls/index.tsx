@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { useEvent } from "react-use";
+// import { useEvent } from "react-use";
 
 import {
   Button,
   Container,
+  Divider,
   Flex,
   Menu,
   MenuButton,
@@ -22,11 +23,12 @@ import {
 import VideoControlButton from "./VideoControlButton";
 import VideoRateItem from "./VideoRateItem";
 import formatDuration from "../utils/formatDuration";
+import VideoControlVolume from "./VideoControlVolume";
 
 const VideoControls = () => {
   const {
     videoRef,
-    functions: { togglePlay, skip },
+    functions: { skip, togglePlay },
   } = useContext(VideoContext);
   const setHoverActive = useVideoHoverActive()[1];
   const [paused] = usePaused();
@@ -101,9 +103,13 @@ const VideoControls = () => {
           <RewindIcon w="6" h="6" transform="scaleX(-1)" />
         </VideoControlButton>
 
-        <Text fontWeight="bold">
+        <Text as="span" fontWeight="bold" minW="max-content">
           {currentTime || "00:00"} / {duration}
         </Text>
+
+        <Divider visibility="hidden" />
+
+        <VideoControlVolume />
       </Flex>
     </Container>
   );

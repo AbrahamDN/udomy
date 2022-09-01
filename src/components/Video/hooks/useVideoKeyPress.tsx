@@ -10,6 +10,7 @@ const useVideoKeyPress = (functions: useVideoKeyPressProps) => {
     toggleMute,
     skip,
     toggleCaptions,
+    changeVolume,
   } = functions;
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -39,6 +40,14 @@ const useVideoKeyPress = (functions: useVideoKeyPressProps) => {
       case "arrowright":
       case "l":
         if (skip) skip(5);
+        break;
+      case "arrowdown":
+        e.preventDefault();
+        if (changeVolume) changeVolume(-1);
+        break;
+      case "arrowup":
+        e.preventDefault();
+        if (changeVolume) changeVolume(1);
         break;
       case "c":
         if (toggleCaptions) toggleCaptions();
