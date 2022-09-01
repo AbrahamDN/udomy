@@ -38,6 +38,8 @@ const Video = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const video = videoRef.current;
 
+  const caption = video && video.textTracks && video.textTracks[0];
+
   // Functions
   const triggerControl = (icon?: VideoOverlayIconNames) => {
     if (icon) setVideoOverlayIcon(icon);
@@ -72,9 +74,14 @@ const Video = () => {
       setVolume(sortVolume);
       triggerControl("volume");
     },
+    toggleCaptions: () => {
+      if (!caption) return;
+      const captionEnabled = caption.mode === "showing";
+      caption.mode = !captionEnabled ? "showing" : "hidden";
+    },
   };
   const { togglePlay } = sharedFunctions;
-
+  if (caption) caption.mode = "showing";
   // Event Listeners
   useVideoKeyPress(sharedFunctions);
 
@@ -145,14 +152,25 @@ const Video = () => {
 
         <video
           ref={videoRef}
-          src="/course/01-Introduction/01- How Dropshipping Really Works.mp4"
           style={{ position: "absolute", width: "100%", height: "100%" }}
           autoPlay={autoplay}
           muted={autoplay}
           onPause={() => setPaused(true)}
           onPlaying={() => setPaused(false)}
           onClick={togglePlay}
-        />
+        >
+          <source
+            src="/course/01-Introduction/01- How Dropshipping Really Works.mp4"
+            type="video/mp4"
+          />
+          <track
+            label="English"
+            kind="captions"
+            srcLang="en"
+            src="/course/01-Introduction/01- How Dropshipping Really Works-en.vtt"
+            default
+          />
+        </video>
       </Flex>
     </VideoContext.Provider>
   );

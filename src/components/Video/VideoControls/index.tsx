@@ -24,6 +24,7 @@ import VideoControlButton from "./VideoControlButton";
 import VideoRateItem from "./VideoRateItem";
 import formatDuration from "../utils/formatDuration";
 import VideoControlVolume from "./VideoControlVolume";
+import VideoControlCaption from "./VideoControlCaption";
 
 const VideoControls = () => {
   const {
@@ -65,9 +66,8 @@ const VideoControls = () => {
             <MenuButton
               as={Button}
               h="fit-content"
-              w="12"
+              w="20"
               px="1"
-              py="0.5"
               borderRadius="0"
               bgColor="white"
               color="black"
@@ -109,6 +109,7 @@ const VideoControls = () => {
 
         <Divider visibility="hidden" />
 
+        <VideoControlCaption />
         <VideoControlVolume />
       </Flex>
     </Container>
