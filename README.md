@@ -2,6 +2,8 @@
 
 Udemy clone
 
+![screenshot](https://i.imgur.com/GaTidMT.png)
+
 ## How to use
 
 1. Clone project `git clone https://github.com/AbrahamDN/udomy.git`
