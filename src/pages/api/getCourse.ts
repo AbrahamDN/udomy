@@ -32,7 +32,7 @@ const videoFormats = [
   ".SWF",
 ];
 
-async function readFiles(req: NextApiRequest, res: NextApiResponse) {
+async function getCourse(req: NextApiRequest, res: NextApiResponse) {
   const folderPath = path.join(process.cwd(), "/public/course");
   // const fileContents = await fs.readFile(folderPath, "utf8");
 
@@ -58,6 +58,7 @@ async function readFiles(req: NextApiRequest, res: NextApiResponse) {
     folderPath,
     {
       attributes: ["atime", "birthtime", "ctime", "extension", "mtime", "type"],
+      depth: 2,
       normalizePath: true,
     },
     callback,
@@ -65,17 +66,22 @@ async function readFiles(req: NextApiRequest, res: NextApiResponse) {
   );
 
   const dirTreeWithSys = async () => {
-    // type GetItemSYSProps = { extension: string; custom: { rawPath: string } };
-
     const children = dirTree.children;
-    const getDuration = async (item: any) => {
+
+    const getDuration = async (item: any, mapChildren?: any[]) => {
       const isVideo = videoFormats.includes(item.extension?.toUpperCase());
       const url = item.custom.rawPath;
 
       if (isVideo) {
         const sys = await getSys(url);
-        return sys.duration;
+        return parseFloat(sys.duration);
       }
+
+      if (item.type === "directory" && mapChildren)
+        return mapChildren
+          .filter((child) => child.type === "file" && child.custom.duration)
+          .map((child) => parseFloat(child.custom.duration))
+          .reduce((prevValue, currValue) => prevValue + currValue, 0);
 
       return;
     };
@@ -99,6 +105,8 @@ async function readFiles(req: NextApiRequest, res: NextApiResponse) {
             })
           );
 
+          const sys = await getDuration(child, mapGrandChildren);
+
           return {
             ...child,
             children: mapGrandChildren,
@@ -119,7 +127,7 @@ async function readFiles(req: NextApiRequest, res: NextApiResponse) {
       })
     );
 
-    const sys = await getDuration(dirTree);
+    const sys = await getDuration(dirTree, mapChildren);
 
     return {
       ...dirTree,
@@ -136,4 +144,4 @@ async function readFiles(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json(tree);
 }
 
-export default readFiles;
+export default getCourse;
