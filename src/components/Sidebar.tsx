@@ -40,6 +40,7 @@ const Sidebar = ({}: SidebarProps) => {
 
         <Button
           onClick={() => setSidebar(false)}
+          color="black"
           p={0.5}
           bgColor="transparent"
           _hover={{ bgColor: "transparent" }}
