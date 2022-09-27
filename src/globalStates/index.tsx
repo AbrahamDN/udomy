@@ -1,7 +1,12 @@
 import { createGlobalState } from "react-use";
 import { VideoOverlayIconNames } from "../components/Video/VideoOverlay/VideoOrverlay.types";
 
+type CourseData = {
+  children: any[];
+};
+
 export const //
+  useCourseData = createGlobalState<CourseData>(),
   // Sidebar
   useSidebar = createGlobalState(false),
   // Video

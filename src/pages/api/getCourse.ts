@@ -57,7 +57,7 @@ async function getCourse(req: NextApiRequest, res: NextApiResponse) {
   const dirTree: DirectoryTree & { path?: string } = directoryTree(
     folderPath,
     {
-      attributes: ["atime", "birthtime", "ctime", "extension", "mtime", "type"],
+      attributes: ["extension", "type"],
       depth: 2,
       normalizePath: true,
     },

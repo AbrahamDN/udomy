@@ -8,16 +8,19 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../components/Dashboard";
 import VideoSection from "../components/VideoSection";
 import { Footer } from "../components/Footer";
-import { useSidebar } from "../globalStates";
+import { useCourseData, useSidebar } from "../globalStates";
 
-const Index = () => {
+const Index = ({ course }) => {
+  const setCourseData = useCourseData()[1];
   const [sidebar, setSidebar] = useSidebar();
   const [localSidebar, setLocalSidebar] = useLocalStorage("sidebar", false);
+  const [] = useLocalStorage("course", course);
 
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
 
   useEffect(() => {
     setSidebar(localSidebar);
+    setCourseData(course);
   }, []);
 
   useEffect(() => {
@@ -55,3 +58,18 @@ const Index = () => {
 };
 
 export default Index;
+
+export async function getServerSideProps() {
+  const res = await fetch(`http://localhost:3000/api/getCourse`);
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { course: data },
+  };
+}
