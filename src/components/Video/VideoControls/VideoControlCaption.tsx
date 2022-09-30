@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   Menu,
   MenuButton,
   MenuItem,
@@ -9,6 +10,7 @@ import {
 import { CaptionIcon } from "../../Icons";
 import { useVideoCaption } from "../../../globalStates";
 import { useLocalStorage } from "react-use";
+import VideoControlButton from "./VideoControlButton";
 
 const VideoControlCaption = () => {
   const [caption, setCaption] = useVideoCaption();
@@ -25,12 +27,7 @@ const VideoControlCaption = () => {
   return (
     <Menu>
       <Tooltip label="Captions" placement="top" p="2" mb="4">
-        <MenuButton
-          border="none"
-          opacity={0.8}
-          _hover={{ opacity: 1 }}
-          _focus={{ opacity: 1 }}
-        >
+        <MenuButton as={VideoControlButton} border="none">
           <CaptionIcon w="7" h="7" />
         </MenuButton>
       </Tooltip>

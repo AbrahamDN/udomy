@@ -86,6 +86,9 @@ const theme = extendTheme({
       600: "#1c1d1f",
     },
   },
+  shadows: {
+    outline: "0 0 0 3px #baa5e8",
+  },
   fonts,
   breakpoints,
 });

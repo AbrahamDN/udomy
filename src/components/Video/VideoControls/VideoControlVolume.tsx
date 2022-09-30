@@ -16,6 +16,7 @@ const VideoControlVolume = () => {
     volumeState,
     functions: { toggleMute },
   } = useContext(VideoContext);
+
   const volume = volumeState?.volume || 1;
   const setVolume = volumeState?.setVolume;
 
@@ -39,7 +40,7 @@ const VideoControlVolume = () => {
       onMouseEnter={() => setVolumeHover(true)}
       onMouseLeave={() => setVolumeHover(false)}
     >
-      <Flex position="absolute" bottom="1" p="6">
+      <Flex position="absolute" bottom="1" p="6" px={volumeHover ? "6" : "0"}>
         <Slider
           className="volume-slider"
           value={!videoMuted ? volume * 100 : 0}
@@ -52,10 +53,9 @@ const VideoControlVolume = () => {
           p="0"
           mb="12"
           transition="height 250ms ease-in-out"
-          focusThumbOnChange
+          focusThumbOnChange={false}
           onChange={handleVolumeChange}
-          isReadOnly
-          onKeyDown={(e) => e.preventDefault()}
+          // onKeyDown={(e) => e.preventDefault()}
         >
           <SliderTrack w="6" h="full" borderRadius="0" left="-10px">
             <SliderFilledTrack bgColor="brand" />
@@ -73,7 +73,8 @@ const VideoControlVolume = () => {
           />
         </Slider>
       </Flex>
-      <VideoControlButton onClick={toggleMute} h="fit-content" borderRadius="0">
+
+      <VideoControlButton onClick={toggleMute} borderRadius="0">
         {videoMuted ? (
           <VolumeOffIcon w="6" h="6" />
         ) : (

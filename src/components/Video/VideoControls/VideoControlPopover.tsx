@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { Flex, keyframes } from "@chakra-ui/react";
+import { Button, Flex, keyframes } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 import VideoOverlayIcon from "../VideoOverlay/VideoOverlayIcon";
@@ -40,12 +40,13 @@ const VideoControlPopover = () => {
       onClick={videoFirstMount ? togglePlay : null}
       onMouseEnter={() => setHoverActive(false)}
       onMouseLeave={() => setHoverActive(true)}
-      as={videoFirstMount ? motion.button : motion.div}
+      as={videoFirstMount ? Button : motion.div}
       animation={animation}
       w={24}
       h={24}
       alignItems="center"
       justifyContent="center"
+      border="none"
       borderRadius="full"
       bgColor={videoFirstMount ? "black" : "black_80"}
       color="white"
