@@ -15,8 +15,6 @@ export default class Document extends NextDocument {
           <link rel="apple-touch-icon" href="/logo192.png" />
           <link rel="manifest" href="/manifest.json" />
 
-          <title>Udomy - Course player</title>
-
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"

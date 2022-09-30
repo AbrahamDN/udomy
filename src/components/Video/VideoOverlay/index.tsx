@@ -6,6 +6,7 @@ import VideoOverlayGradient from "./VideoOverlayGradient";
 import VideoControls from "../VideoControls";
 import { useHover, useVideoHoverActive } from "../../../globalStates";
 import VideoContext from "../../../../context/video.context";
+import VideoCaptions from "../VideoControls/VideoCaptions";
 
 const VideoOverlay = () => {
   const videoRef = useContext(VideoContext).videoRef;
@@ -42,8 +43,10 @@ const VideoOverlay = () => {
           </Text>
         </Container>
       </VideoOverlayGradient>
-      <VideoOverlayGradient flip position="absolute" bottom="0" />
 
+      <VideoCaptions />
+
+      <VideoOverlayGradient flip position="absolute" bottom="0" />
       <VideoControls />
     </Flex>
   );

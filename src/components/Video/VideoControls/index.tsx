@@ -109,8 +109,9 @@ const VideoControls = () => {
 
         <Divider visibility="hidden" />
 
-        <VideoControlCaption />
         <VideoControlVolume />
+
+        <VideoControlCaption />
       </Flex>
     </Container>
   );

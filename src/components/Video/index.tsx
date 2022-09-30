@@ -9,6 +9,7 @@ import { VideoOverlayIconNames } from "./VideoOverlay/VideoOrverlay.types";
 import {
   useHover,
   usePaused,
+  useVideoCaption,
   useVideoControlTriggered,
   useVideoCurrentTime,
   useVideoFirstMount,
@@ -27,6 +28,7 @@ const Video = () => {
   const setPaused = usePaused()[1];
   const setControlTriggered = useVideoControlTriggered()[1];
   const setCurrentTime = useVideoCurrentTime()[1];
+  const setCaption = useVideoCaption()[1];
 
   const [volume, setVolume] = useLocalStorage("volume", 1);
   // States
@@ -37,8 +39,6 @@ const Video = () => {
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const video = videoRef.current;
-
-  const caption = video && video.textTracks && video.textTracks[0];
 
   // Functions
   const triggerControl = (icon?: VideoOverlayIconNames) => {
@@ -75,13 +75,11 @@ const Video = () => {
       triggerControl("volume");
     },
     toggleCaptions: () => {
-      if (!caption) return;
-      const captionEnabled = caption.mode === "showing";
-      caption.mode = !captionEnabled ? "showing" : "hidden";
+      setCaption((currState) => !currState);
     },
   };
   const { togglePlay } = sharedFunctions;
-  if (caption) caption.mode = "showing";
+
   // Event Listeners
   useVideoKeyPress(sharedFunctions);
 
@@ -162,13 +160,6 @@ const Video = () => {
           <source
             src="/course/01-Introduction/01- How Dropshipping Really Works.mp4"
             type="video/mp4"
-          />
-          <track
-            label="English"
-            kind="captions"
-            srcLang="en"
-            src="/course/01-Introduction/01- How Dropshipping Really Works-en.vtt"
-            default
           />
         </video>
       </Flex>
