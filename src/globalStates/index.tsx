@@ -25,4 +25,5 @@ export const //
   useCaptionSize = createGlobalState("md"),
   useCaptionOpacity = createGlobalState("800"),
   useCaptionUnder = createGlobalState(false),
-  useVideoAutoplay = createGlobalState(false);
+  useVideoAutoplay = createGlobalState(false),
+  useVideoFullscreen = createGlobalState(false);

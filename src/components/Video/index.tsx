@@ -15,6 +15,7 @@ import {
   useVideoControlTriggered,
   useVideoCurrentTime,
   useVideoFirstMount,
+  useVideoFullscreen,
   useVideoLoading,
   useVideoOverlayIcon,
   useVideoVolume,
@@ -36,6 +37,7 @@ const Video = () => {
   const setCurrentTime = useVideoCurrentTime()[1];
   const setCaption = useVideoCaption()[1];
   const [volume, setVolume] = useVideoVolume();
+  const [fullScreen, setFullScreen] = useVideoFullscreen();
 
   const [localVolume, setLocalVolume] = useLocalStorage("volume", 1);
   // States
@@ -103,6 +105,12 @@ const Video = () => {
     },
     toggleCaptions: () => {
       setCaption((currState) => !currState);
+    },
+    toggleFullScreen: () => {
+      !document?.fullscreenElement
+        ? videoContainerRef.current?.requestFullscreen()
+        : document.exitFullscreen();
+      setFullScreen(!fullScreen);
     },
   };
   const { togglePlay } = sharedFunctions;

@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { Container, Divider, Flex, Text } from "@chakra-ui/react";
 import VideoContext from "../../../../context/video.context";
-import { PauseIcon, PlayIcon, RewindIcon } from "../../Icons";
+import {
+  FullscreenExitIcon,
+  FullscreenIcon,
+  PauseIcon,
+  PlayIcon,
+  RewindIcon,
+} from "../../Icons";
 import {
   usePaused,
   useVideoCurrentTime,
+  useVideoFullscreen,
   useVideoHoverActive,
 } from "../../../globalStates";
 import VideoControlButton from "./VideoControlButton";
@@ -18,17 +25,24 @@ import VideoSettings from "./VideoSettings";
 const VideoControls = () => {
   const {
     videoRef,
-    functions: { skip, togglePlay },
+    functions: { skip, togglePlay, toggleFullScreen, triggerControl },
   } = useContext(VideoContext);
   const setHoverActive = useVideoHoverActive()[1];
   const [paused] = usePaused();
   const [currentTime] = useVideoCurrentTime();
+  const [fullScreen, setFullScreen] = useVideoFullscreen();
 
   const video = videoRef.current;
 
   const iconSize = { w: "8", h: "8" };
 
   const duration = video?.duration ? formatDuration(video.duration) : "00:00";
+  const isFullScreen = document?.fullscreenElement;
+
+  useEffect(() => {
+    if (isFullScreen) setFullScreen(false);
+    triggerControl(!isFullScreen ? "fullscreenExit" : "fullscreen");
+  }, [isFullScreen, fullScreen]);
 
   return (
     <Container maxW="full" position="absolute" bottom="0">
@@ -69,6 +83,17 @@ const VideoControls = () => {
         <VideoControlCaption />
 
         <VideoSettings />
+
+        <VideoControlButton
+          toolLabel={fullScreen ? "Exit fullscreen" : "Fullscreen"}
+          onClick={toggleFullScreen}
+        >
+          {fullScreen ? (
+            <FullscreenExitIcon w="6" h="6" />
+          ) : (
+            <FullscreenIcon w="6" h="6" />
+          )}
+        </VideoControlButton>
       </Flex>
     </Container>
   );
