@@ -72,8 +72,8 @@ export const ChevronDownIcon = createIcon({
   ),
 });
 
-export const ContractIcon = createIcon({
-  displayName: "ContractIcon",
+export const ShrinkIcon = createIcon({
+  displayName: "ShrinkIcon",
   viewBox: "0 0 24 24",
   path: [
     <path

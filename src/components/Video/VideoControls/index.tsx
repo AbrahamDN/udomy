@@ -3,14 +3,17 @@ import React, { useContext, useEffect } from "react";
 import { Container, Divider, Flex, Text } from "@chakra-ui/react";
 import VideoContext from "../../../../context/video.context";
 import {
+  ExpandIcon,
   FullscreenExitIcon,
   FullscreenIcon,
   PauseIcon,
   PlayIcon,
   RewindIcon,
+  ShrinkIcon,
 } from "../../Icons";
 import {
   usePaused,
+  useSidebar,
   useVideoCurrentTime,
   useVideoFullscreen,
   useVideoHoverActive,
@@ -31,6 +34,7 @@ const VideoControls = () => {
   const [paused] = usePaused();
   const [currentTime] = useVideoCurrentTime();
   const [fullScreen, setFullScreen] = useVideoFullscreen();
+  const [sidebar, setSidebar] = useSidebar();
 
   const video = videoRef.current;
 
@@ -93,6 +97,13 @@ const VideoControls = () => {
           ) : (
             <FullscreenIcon w="6" h="6" />
           )}
+        </VideoControlButton>
+
+        <VideoControlButton
+          toolLabel={sidebar ? "Expanded view" : "Default view"}
+          onClick={() => setSidebar((prev) => !prev)}
+        >
+          {sidebar ? <ExpandIcon w="6" h="6" /> : <ShrinkIcon w="6" h="6" />}
         </VideoControlButton>
       </Flex>
     </Container>
