@@ -41,17 +41,20 @@ const VideoControls = () => {
         h="12"
         alignItems="center"
       >
-        <VideoControlButton onClick={togglePlay}>
+        <VideoControlButton
+          toolLabel={paused ? "Play" : "Pause"}
+          onClick={togglePlay}
+        >
           {paused ? <PlayIcon {...iconSize} /> : <PauseIcon w="7" h="7" />}
         </VideoControlButton>
 
-        <VideoControlButton onClick={() => skip(-5)}>
+        <VideoControlButton toolLabel="Rewind 5s" onClick={() => skip(-5)}>
           <RewindIcon w="6" h="6" />
         </VideoControlButton>
 
         <VideoControlSpeed />
 
-        <VideoControlButton onClick={() => skip(5)}>
+        <VideoControlButton toolLabel="Forward 5s" onClick={() => skip(5)}>
           <RewindIcon w="6" h="6" transform="scaleX(-1)" />
         </VideoControlButton>
 

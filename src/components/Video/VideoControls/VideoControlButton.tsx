@@ -15,7 +15,7 @@ const VideoControlButton = ({
       border="1px solid"
       borderColor="whiteAlpha.500"
       p="2"
-      mb="2"
+      mb="4"
     >
       <Button
         variant="secondary"
