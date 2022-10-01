@@ -16,6 +16,21 @@ const breakpoints = {
 };
 
 const theme = extendTheme({
+  styles: {
+    global: () => ({
+      ".chakra-switch": {
+        "--switch-track-width": "2.2rem !important",
+        "--switch-track-height": "0.75rem !important",
+      },
+      ".chakra-switch__track": {
+        border: "1px solid white",
+        background: "cloudGrey !important",
+      },
+      ".chakra-switch__track[data-checked]": {
+        background: "black !important",
+      },
+    }),
+  },
   components: {
     Tooltip: {
       baseStyle: {
@@ -81,6 +96,7 @@ const theme = extendTheme({
     darkGrey: "#3e4143",
     cloudGrey: "#6a6f73",
     schemeBlack: {
+      300: "#3c3e40",
       400: "#3c3e40",
       500: "#1c1d1f",
       600: "#1c1d1f",
