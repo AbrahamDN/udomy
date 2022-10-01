@@ -34,7 +34,14 @@ const VideoControlCaption = () => {
   }, [caption]);
 
   return (
-    <Flex>
+    <Flex
+      sx={{
+        ".menu__button": {
+          opacity: 0.8,
+          "&:hover, &:focus": { opacity: 1 },
+        },
+      }}
+    >
       <VideoMenu
         title={<CaptionIcon w="7" h="7" />}
         menuItems={menuItems}
