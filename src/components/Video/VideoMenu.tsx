@@ -74,6 +74,7 @@ const VideoMenu = ({
           ".chakra-menu__menuitem-option, .chakra-menu__menuitem": {
             pl: "8",
             pr: "4",
+            py: "2.5",
             flexDirection: "row-reverse",
             "&:hover": { bgColor: "whiteAlpha.300" },
             "&:focus": { bgColor: "whiteAlpha.300" },

@@ -14,6 +14,7 @@ import formatDuration from "../utils/formatDuration";
 import VideoControlVolume from "./VideoControlVolume";
 import VideoControlCaption from "./VideoControlCaption";
 import VideoControlSpeed from "./VideoControlSpeed";
+import VideoSettings from "./VideoSettings";
 
 const VideoControls = () => {
   const {
@@ -67,6 +68,8 @@ const VideoControls = () => {
         <VideoControlVolume />
 
         <VideoControlCaption />
+
+        <VideoSettings />
       </Flex>
     </Container>
   );

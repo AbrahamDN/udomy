@@ -170,9 +170,8 @@ const Video = () => {
         functions: { triggerControl, ...sharedFunctions },
       }}
     >
-      <Flex w="full" h="full" flexDir="column">
+      <Flex w="full" h="full" flexDir="column" ref={videoContainerRef}>
         <Flex
-          ref={videoContainerRef}
           onMouseOver={() => setHover(true)}
           onMouseLeave={() => setTimeout(() => setHover(() => false), 2000)}
           w="full"

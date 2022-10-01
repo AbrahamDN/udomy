@@ -17,7 +17,6 @@ const useVideoKeyPress = (functions: useVideoKeyPressProps) => {
     switch (e.key.toLowerCase()) {
       case " ":
       case "k":
-      case "p":
         e.preventDefault();
         if (togglePlay) togglePlay();
         break;
