@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Tooltip,
-} from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Flex } from "@chakra-ui/react";
 import { CaptionIcon } from "../../Icons";
 import { useVideoCaption } from "../../../globalStates";
 import { useLocalStorage } from "react-use";
-import VideoControlButton from "./VideoControlButton";
+import VideoMenu from "../VideoMenu";
 
 const VideoControlCaption = () => {
   const [caption, setCaption] = useVideoCaption();
@@ -20,48 +13,34 @@ const VideoControlCaption = () => {
     setCaption(captionOn);
   };
 
+  const menuItems = [
+    {
+      title: "Off",
+      value: "off",
+      onClick: () => handleMenuItemClick(false),
+    },
+    {
+      title: "English",
+      value: "english",
+      onClick: () => handleMenuItemClick(true),
+    },
+  ];
+
+  const defaultItem = menuItems[caption ? 1 : 0].value;
+
+  useEffect(() => setCaption(localCaption), []);
   useEffect(() => {
     setLocalCaption(caption);
   }, [caption]);
 
   return (
-    <Menu>
-      <Tooltip label="Captions" placement="top" p="2" mb="4">
-        <MenuButton as={VideoControlButton} border="none">
-          <CaptionIcon w="7" h="7" />
-        </MenuButton>
-      </Tooltip>
-
-      <MenuList
-        color="white"
-        bgColor="black"
-        borderRadius="0"
-        border="1px solid"
-        borderColor="whiteAlpha.500"
-        fontSize="sm"
-        mb="6"
-        minW="min-content"
-      >
-        <MenuItem
-          onClick={() => handleMenuItemClick(false)}
-          px="8"
-          bgColor="transparent"
-          _hover={{ bgColor: "whiteAlpha.300" }}
-          _focus={{ bgColor: "black_80" }}
-        >
-          Off
-        </MenuItem>
-        <MenuItem
-          onClick={() => handleMenuItemClick(true)}
-          px="8"
-          bgColor="transparent"
-          _hover={{ bgColor: "whiteAlpha.300" }}
-          _focus={{ bgColor: "black_80" }}
-        >
-          English
-        </MenuItem>
-      </MenuList>
-    </Menu>
+    <Flex>
+      <VideoMenu
+        title={<CaptionIcon w="7" h="7" />}
+        menuItems={menuItems}
+        defaultItem={defaultItem}
+      />
+    </Flex>
   );
 };
 

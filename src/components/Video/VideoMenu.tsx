@@ -13,7 +13,7 @@ import {
 import { CircleIcon } from "../Icons";
 
 type VideoMenuProps = {
-  defaultItem: string;
+  defaultItem?: string;
   children?: string | number | React.ReactElement;
   title?: string | number | React.ReactElement;
   label?: string;
