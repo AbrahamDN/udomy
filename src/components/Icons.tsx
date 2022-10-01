@@ -338,7 +338,13 @@ export const PlusIcon = createIcon({
 });
 
 export const MinusIcon = createIcon({
-  displayName: "PlusIcon",
+  displayName: "MinusIcon",
   viewBox: "0 0 24 24",
   path: <path fill="currentColor" d="M5 11h14v2H5z" />,
+});
+
+export const CircleIcon = createIcon({
+  displayName: "CircleIcon",
+  viewBox: "0 0 24 24",
+  path: <circle cx="12" cy="12" r="11" fill="currentColor" />,
 });
