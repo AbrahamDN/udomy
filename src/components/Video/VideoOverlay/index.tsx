@@ -4,16 +4,21 @@ import { useIdle } from "react-use";
 
 import VideoOverlayGradient from "./VideoOverlayGradient";
 import VideoControls from "../VideoControls";
-import { useHover, useVideoHoverActive } from "../../../globalStates";
+import {
+  useCaptionUnder,
+  useHover,
+  useVideoHoverActive,
+} from "../../../globalStates";
 import VideoContext from "../../../../context/video.context";
 import VideoCaptions from "../VideoControls/VideoCaptions";
 
 const VideoOverlay = () => {
-  const videoRef = useContext(VideoContext).videoRef;
   const togglePlay = useContext(VideoContext).functions.togglePlay;
 
   const [hover] = useHover();
   const [hoverActive] = useVideoHoverActive();
+  const [captionUnder] = useCaptionUnder();
+
   const [isIdle, setIsIdle] = useState(false);
 
   const idleState = useIdle(2000);
@@ -44,7 +49,7 @@ const VideoOverlay = () => {
         </Container>
       </VideoOverlayGradient>
 
-      <VideoCaptions />
+      {!captionUnder && <VideoCaptions />}
 
       <VideoOverlayGradient flip position="absolute" bottom="0" />
       <VideoControls />

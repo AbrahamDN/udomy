@@ -1,33 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Flex, Text } from "@chakra-ui/react";
-import { useVideoCaption } from "../../../globalStates";
+import { Flex, FlexProps, Text } from "@chakra-ui/react";
+import {
+  useCaptionOpacity,
+  useCaptionSize,
+  useVideoCaption,
+  useVideoSubtitles,
+} from "../../../globalStates";
 import VideoContext from "../../../../context/video.context";
 
-const VideoCaptions = () => {
+export const captionFontSizes = [
+  { title: "50%", value: "xs" },
+  { title: "75%", value: "sm" },
+  { title: "100%", value: "md" },
+  { title: "150%", value: "2xl" },
+  { title: "200%", value: "3xl" },
+];
+
+export const captionBgOpacity = [
+  { title: "0%", value: "0" },
+  { title: "25%", value: "300" },
+  { title: "50%", value: "600" },
+  { title: "75%", value: "800" },
+  { title: "100%", value: "black" },
+];
+
+const VideoCaptions = (props: FlexProps) => {
   const video = useContext(VideoContext).videoRef?.current;
+  const { subtitles } = useContext(VideoContext).subtitlesState;
   const [caption] = useVideoCaption();
-  const [subtitles, setSubtitles] = useState([]);
+  const [fontSize] = useCaptionSize();
+  const [bgOpacity] = useCaptionOpacity();
   const [subtitle, setSubtitle] = useState("");
   const currentTime = parseFloat(video?.currentTime.toFixed(3));
-
-  const getSubtitles = async () => {
-    const res = await fetch("/api/subtitle", {
-      method: "POST",
-      body: JSON.stringify({
-        subtitle:
-          "/course/01-Introduction/01- How Dropshipping Really Works-en.vtt",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    setSubtitles(data);
-  };
-
-  useEffect(() => {
-    getSubtitles();
-  }, []);
 
   useEffect(() => {
     const subtitleObj = subtitles?.find(({ data }) => {
@@ -44,12 +48,13 @@ const VideoCaptions = () => {
     <Flex
       position="absolute"
       bottom="16"
-      bgColor="blackAlpha.800"
+      bgColor={bgOpacity === "black" ? bgOpacity : `blackAlpha.${bgOpacity}`}
       p="2"
       w="auto"
       maxW="80%"
+      {...props}
     >
-      <Text fontSize={{ base: "md", md: "lg", lg: "2xl" }} userSelect="none">
+      <Text fontSize={{ base: "md", md: fontSize }} userSelect="none">
         {subtitle}
       </Text>
     </Flex>
