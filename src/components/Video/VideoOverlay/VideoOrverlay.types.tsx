@@ -12,7 +12,9 @@ export type VideoOverlayIconNames =
   | "rateDrop"
   | "rateIncrease"
   | "volume"
-  | "volumeLow";
+  | "volumeLow"
+  | "caption"
+  | "captionOff";
 
 export type VideoOverlayIconProps = IconProps & {
   name: VideoOverlayIconNames | "";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Flex,
   MenuDivider,
@@ -19,6 +19,7 @@ import { useLocalStorage } from "react-use";
 import VideoMenu from "../VideoMenu";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { captionBgOpacity, captionFontSizes } from "./VideoCaptions";
+import VideoContext from "../../../../context/video.context";
 
 type SettingProps = {
   title: string;
@@ -27,6 +28,8 @@ type SettingProps = {
 };
 
 const VideoControlCaption = () => {
+  const { triggerControl } = useContext(VideoContext).functions;
+
   const [caption, setCaption] = useVideoCaption();
   const [captionSize, setCaptionSize] = useCaptionSize();
   const [captionOpacity, setCaptionOpacity] = useCaptionOpacity();
@@ -51,6 +54,7 @@ const VideoControlCaption = () => {
 
   const handleMenuItemClick = (captionOn: boolean) => {
     setCaption(captionOn);
+    triggerControl(captionOn ? "caption" : "captionOff");
   };
 
   const menuItems = [

@@ -1,4 +1,6 @@
 import {
+  CaptionIcon,
+  CaptionOffIcon,
   FullscreenExitIcon,
   FullscreenIcon,
   MinusIcon,
@@ -38,6 +40,10 @@ const VideoOverlayIcon = ({ name, ...otherProps }: VideoOverlayIconProps) => {
       return <FullscreenExitIcon w="16" h="16" {...otherProps} />;
     case "fullscreen":
       return <FullscreenIcon w="16" h="16" {...otherProps} />;
+    case "caption":
+      return <CaptionIcon w="14" h="14" {...otherProps} />;
+    case "captionOff":
+      return <CaptionOffIcon w="14" h="14" {...otherProps} />;
     default:
       return;
   }
