@@ -7,7 +7,6 @@ import {
   usePaused,
   useVideoCurrentTime,
   useVideoHoverActive,
-  useVideoRate,
 } from "../../../globalStates";
 import VideoControlButton from "./VideoControlButton";
 import formatDuration from "../utils/formatDuration";
