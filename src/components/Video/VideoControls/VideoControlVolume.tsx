@@ -17,7 +17,7 @@ const VideoControlVolume = () => {
     functions: { toggleMute },
   } = useContext(VideoContext);
 
-  const volume = volumeState?.volume || 1;
+  const volume = volumeState?.volume;
   const setVolume = volumeState?.setVolume;
 
   const [volumeHover, setVolumeHover] = useState(false);
@@ -55,7 +55,6 @@ const VideoControlVolume = () => {
           transition="height 250ms ease-in-out"
           focusThumbOnChange={false}
           onChange={handleVolumeChange}
-          // onKeyDown={(e) => e.preventDefault()}
         >
           <SliderTrack w="6" h="full" borderRadius="0" left="-10px">
             <SliderFilledTrack bgColor="brand" />

@@ -17,7 +17,7 @@ import {
   useVideoFirstMount,
   useVideoLoading,
   useVideoOverlayIcon,
-  useVideoSubtitles,
+  useVideoVolume,
 } from "../../globalStates";
 import VideoControlPopover from "./VideoControls/VideoControlPopover";
 import formatDuration from "./utils/formatDuration";
@@ -35,8 +35,9 @@ const Video = () => {
   const setControlTriggered = useVideoControlTriggered()[1];
   const setCurrentTime = useVideoCurrentTime()[1];
   const setCaption = useVideoCaption()[1];
+  const [volume, setVolume] = useVideoVolume();
 
-  const [volume, setVolume] = useLocalStorage("volume", 1);
+  const [localVolume, setLocalVolume] = useLocalStorage("volume", 1);
   // States
   const [mounted, setMounted] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
@@ -96,21 +97,15 @@ const Video = () => {
       if (!video) return;
       volume = volume / 100;
       const newVolume = video.volume + volume;
-      const sortVolume = parseFloat(
-        (newVolume > 1 ? 1 : newVolume < 0 ? 0 : newVolume).toFixed(2)
-      );
+      const volumeOff = newVolume <= 0;
+      const sortVolume = newVolume >= 1 ? 1 : volumeOff ? 0 : newVolume;
       setVolume(sortVolume);
-      triggerControl("volume");
     },
     toggleCaptions: () => {
       setCaption((currState) => !currState);
     },
   };
   const { togglePlay } = sharedFunctions;
-
-  useEffect(() => {
-    getSubtitles();
-  }, []);
 
   // Event Listeners
   useVideoKeyPress(sharedFunctions);
@@ -136,7 +131,12 @@ const Video = () => {
   );
 
   // Life cycle events
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    getSubtitles();
+    setMounted(true);
+    setVolume(localVolume);
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined")
       setAutoplay(JSON.parse(window.localStorage.getItem("autoplay")));
@@ -147,13 +147,18 @@ const Video = () => {
   });
 
   useEffect(() => {
+    setLocalVolume(volume);
     if (video) {
-      video.volume = volume;
+      const volumeOff = volume <= 0;
+      video.volume = volume >= 1 ? 1 : volumeOff ? 0 : volume;
+      video.muted = volumeOff;
+      volumeOff ? triggerControl("mute") : triggerControl("volume");
     }
   }, [volume]);
 
   //   Component
   if (!mounted) return null;
+
   return (
     <VideoContext.Provider
       value={{

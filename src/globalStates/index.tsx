@@ -19,6 +19,7 @@ export const //
   useVideoLoading = createGlobalState(true),
   useVideoOverlayIcon = createGlobalState<VideoOverlayIconNames>(),
   useVideoRate = createGlobalState(1),
+  useVideoVolume = createGlobalState(1),
   useVideoSubtitles = createGlobalState([]),
   useVideoCaption = createGlobalState(false),
   useCaptionSize = createGlobalState("md"),
