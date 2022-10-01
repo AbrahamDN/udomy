@@ -3,8 +3,8 @@ import { Button, ButtonProps, MenuButton, Tooltip } from "@chakra-ui/react";
 
 type VideoRateButtonProps = ButtonProps & { label?: string };
 
-const VideoRateButton = ({ label, ...props }: VideoRateButtonProps) => (
-  <Tooltip label={label} placement="top" p="2" mb="6">
+const VideoRateButton = React.forwardRef((props: VideoRateButtonProps, ref) => (
+  <Tooltip label={props.label} placement="top" p="2" mb="6">
     <MenuButton
       as={Button}
       h="fit-content"
@@ -19,6 +19,6 @@ const VideoRateButton = ({ label, ...props }: VideoRateButtonProps) => (
       {...props}
     />
   </Tooltip>
-);
+));
 
 export default VideoRateButton;
