@@ -24,6 +24,7 @@ import VideoControlVolume from "./VideoControlVolume";
 import VideoControlCaption from "./VideoControlCaption";
 import VideoControlSpeed from "./VideoControlSpeed";
 import VideoSettings from "./VideoSettings";
+import VideoTimeline from "./VideoTimeline";
 
 const VideoControls = () => {
   const {
@@ -50,7 +51,7 @@ const VideoControls = () => {
 
   return (
     <Container maxW="full" position="absolute" bottom="0">
-      <Flex w="full" h="1.5" bgColor="brand"></Flex>
+      <VideoTimeline />
 
       <Flex
         onMouseEnter={() => setHoverActive(false)}

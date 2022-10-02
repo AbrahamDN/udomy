@@ -26,4 +26,5 @@ export const //
   useCaptionOpacity = createGlobalState("800"),
   useCaptionUnder = createGlobalState(false),
   useVideoAutoplay = createGlobalState(false),
-  useVideoFullscreen = createGlobalState(false);
+  useVideoFullscreen = createGlobalState(false),
+  useIsScrubbing = createGlobalState(false);
