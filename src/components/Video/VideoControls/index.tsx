@@ -1,11 +1,15 @@
 import React, { useContext, useEffect } from "react";
 
-import { Container, Divider, Flex, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Divider,
+  Flex,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import VideoContext from "../../../../context/video.context";
 import {
   ExpandIcon,
-  FullscreenExitIcon,
-  FullscreenIcon,
   PauseIcon,
   PlayIcon,
   RewindIcon,
@@ -25,11 +29,12 @@ import VideoControlCaption from "./VideoControlCaption";
 import VideoControlSpeed from "./VideoControlSpeed";
 import VideoSettings from "./VideoSettings";
 import VideoTimeline from "./VideoTimeline";
+import VideoFullscreen from "./VideoFullscreen";
 
 const VideoControls = () => {
   const {
     videoRef,
-    functions: { skip, togglePlay, toggleFullScreen, triggerControl },
+    functions: { skip, togglePlay, triggerControl, toggleFullScreen },
   } = useContext(VideoContext);
   const setHoverActive = useVideoHoverActive()[1];
   const [paused] = usePaused();
@@ -43,6 +48,8 @@ const VideoControls = () => {
 
   const duration = video?.duration ? formatDuration(video.duration) : "00:00";
   const isFullScreen = document?.fullscreenElement;
+
+  const isLargeScreen = useBreakpointValue({ base: false, lg: true });
 
   useEffect(() => {
     if (isFullScreen) setFullScreen(false);
@@ -89,23 +96,19 @@ const VideoControls = () => {
 
         <VideoSettings />
 
-        <VideoControlButton
-          toolLabel={fullScreen ? "Exit fullscreen" : "Fullscreen"}
-          onClick={toggleFullScreen}
-        >
-          {fullScreen ? (
-            <FullscreenExitIcon w="6" h="6" />
-          ) : (
-            <FullscreenIcon w="6" h="6" />
-          )}
-        </VideoControlButton>
+        <VideoFullscreen
+          toggleFullScreen={toggleFullScreen}
+          triggerControl={triggerControl}
+        />
 
-        <VideoControlButton
-          toolLabel={sidebar ? "Expanded view" : "Default view"}
-          onClick={() => setSidebar((prev) => !prev)}
-        >
-          {sidebar ? <ExpandIcon w="6" h="6" /> : <ShrinkIcon w="6" h="6" />}
-        </VideoControlButton>
+        {isLargeScreen && !fullScreen && (
+          <VideoControlButton
+            toolLabel={sidebar ? "Expanded view" : "Default view"}
+            onClick={() => setSidebar((prev) => !prev)}
+          >
+            {sidebar ? <ExpandIcon w="6" h="6" /> : <ShrinkIcon w="6" h="6" />}
+          </VideoControlButton>
+        )}
       </Flex>
     </Container>
   );
