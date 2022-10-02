@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Flex,
   Slider,
@@ -21,6 +21,7 @@ const VideoControlVolume = () => {
   const setVolume = volumeState?.setVolume;
 
   const [volumeHover, setVolumeHover] = useState(false);
+  const [volumeHoverDelayed, setVolumeHoverDelayed] = useState(false);
 
   const video = videoRef.current;
   const videoMuted = video?.muted;
@@ -34,13 +35,22 @@ const VideoControlVolume = () => {
     setVolumeHover(bool);
   };
 
+  useEffect(() => {
+    setTimeout(() => setVolumeHoverDelayed(volumeHover), 250);
+  }, [volumeHover]);
+
   return (
     <Flex
       justifyContent="center"
       onMouseEnter={() => setVolumeHover(true)}
       onMouseLeave={() => setVolumeHover(false)}
     >
-      <Flex position="absolute" bottom="1" p="6" px={volumeHover ? "6" : "0"}>
+      <Flex
+        position="absolute"
+        bottom="1"
+        p={volumeHover || volumeHoverDelayed ? "4" : "0"}
+        px={volumeHover ? "4" : "0"}
+      >
         <Slider
           className="volume-slider"
           value={!videoMuted ? volume * 100 : 0}
@@ -51,7 +61,7 @@ const VideoControlVolume = () => {
           h={volumeHover ? "32" : "0"}
           w="8"
           p="0"
-          mb="12"
+          mb={volumeHover || volumeHoverDelayed ? "12" : "0"}
           transition="height 250ms ease-in-out"
           focusThumbOnChange={false}
           onChange={handleVolumeChange}
