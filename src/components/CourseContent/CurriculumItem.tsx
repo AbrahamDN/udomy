@@ -1,5 +1,6 @@
-import { Checkbox, Flex, Stack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useEvent } from "react-use";
+import { Checkbox, Flex, Text } from "@chakra-ui/react";
 import { PageIcon, VideoIcon } from "../Icons";
 
 type CurriculumItemProps = {
@@ -15,9 +16,21 @@ const CurriculumItem = ({
   type = "video",
   timeLength,
 }: CurriculumItemProps) => {
+  const [checked, setChecked] = useState(false);
   const [hover, setHover] = useState(false);
+  const ref = useRef<HTMLInputElement>();
+
+  useEvent(
+    "click",
+    () => setChecked((prev) => !prev),
+    ref?.current?.nextSibling
+  );
+
   return (
     <Checkbox
+      ref={ref}
+      isReadOnly
+      isChecked={checked}
       colorScheme="schemeBlack"
       borderColor="dark"
       gap={2}
@@ -26,11 +39,14 @@ const CurriculumItem = ({
       py={2}
       bgColor="white"
       _hover={{ bgColor: "grey.100" }}
+      sx={{
+        ".chakra-checkbox__control": { mt: "1" },
+      }}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Flex flex={1} direction="column" gap={3}>
-        <Text flex={1} as="span" fontSize="sm" lineHeight={1.05}>
+      <Flex flex={1} direction="column">
+        <Text flex={1} as="span" fontSize="13.5px" lineHeight="1.5">
           {title}
         </Text>
         <Flex
@@ -38,6 +54,7 @@ const CurriculumItem = ({
           fontSize="xs"
           gap={1}
           color={hover ? "black" : "cloudGrey"}
+          mt="2"
         >
           {type === "video" ? (
             <VideoIcon w={4} h={4} />
