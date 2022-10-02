@@ -10,27 +10,9 @@ import directoryTree, {
 import { createHash } from "crypto";
 import ffprobe from "ffprobe";
 import ffprobeStatic from "ffprobe-static";
+import videoFormats from "../../../contstants/videoFormats";
 
 type Data = {};
-
-const videoFormats = [
-  ".WEBM",
-  ".MPG",
-  ".MP2",
-  ".MPEG",
-  ".MPE",
-  ".MPV",
-  ".OGG",
-  ".MP4",
-  ".M4P",
-  ".M4V",
-  ".AVI",
-  ".WMV",
-  ".MOV",
-  ".QT",
-  ".FLV",
-  ".SWF",
-];
 
 async function getCourse(req: NextApiRequest, res: NextApiResponse) {
   const folderPath = path.join(process.cwd(), "/public/course");
@@ -49,7 +31,6 @@ async function getCourse(req: NextApiRequest, res: NextApiResponse) {
     item.name = item.name.replace(/\.[^.]*$/, "");
     item.custom = {
       id: createHash("sha1").update(path).digest("base64"),
-      count: item.name.match(/^[^\d]*(\d+)/),
       rawPath: path,
     };
   };
@@ -83,36 +64,36 @@ async function getCourse(req: NextApiRequest, res: NextApiResponse) {
           .map((child) => parseFloat(child.custom.duration))
           .reduce((prevValue, currValue) => prevValue + currValue, 0);
 
-      return;
+      return 60;
     };
 
     const mapChildren = await Promise.all(
       children.map(async (child) => {
-        const sys = await getDuration(child);
+        const duration = await getDuration(child);
         const grandChildren = child.children;
 
         if (grandChildren) {
           const mapGrandChildren = await Promise.all(
             grandChildren.map(async (grandChild) => {
-              const sys = await getDuration(grandChild);
+              const duration = await getDuration(grandChild);
               return {
                 ...grandChild,
                 custom: {
                   ...grandChild.custom,
-                  duration: sys,
+                  duration: duration,
                 },
               };
             })
           );
 
-          const sys = await getDuration(child, mapGrandChildren);
+          const duration = await getDuration(child, mapGrandChildren);
 
           return {
             ...child,
             children: mapGrandChildren,
             custom: {
               ...child.custom,
-              duration: sys,
+              duration: duration,
             },
           };
         }
@@ -121,20 +102,20 @@ async function getCourse(req: NextApiRequest, res: NextApiResponse) {
           ...child,
           custom: {
             ...child.custom,
-            duration: sys,
+            duration: duration,
           },
         };
       })
     );
 
-    const sys = await getDuration(dirTree, mapChildren);
+    const duration = await getDuration(dirTree, mapChildren);
 
     return {
       ...dirTree,
       children: mapChildren,
       custom: {
         ...dirTree.custom,
-        duration: sys,
+        duration: duration,
       },
     };
   };
