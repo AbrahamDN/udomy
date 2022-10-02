@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useEvent } from "react-use";
-import { Checkbox, Flex, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, Text, useEventListener } from "@chakra-ui/react";
 import { PageIcon, VideoIcon } from "../Icons";
 
 type CurriculumItemProps = {
@@ -17,14 +17,19 @@ const CurriculumItem = ({
   timeLength,
 }: CurriculumItemProps) => {
   const [checked, setChecked] = useState(false);
+  const [focused, setFocused] = useState(false);
   const [hover, setHover] = useState(false);
   const ref = useRef<HTMLInputElement>();
+
+  const handleKeyDown = (e: KeyboardEvent) =>
+    e.key === "Enter" && setChecked((prev) => !prev);
 
   useEvent(
     "click",
     () => setChecked((prev) => !prev),
     ref?.current?.nextSibling
   );
+  useEvent("keydown", handleKeyDown, ref?.current);
 
   return (
     <Checkbox
@@ -41,14 +46,26 @@ const CurriculumItem = ({
       _hover={{ bgColor: "grey.100" }}
       sx={{
         ".chakra-checkbox__control": { mt: "1" },
+        ".chakra-checkbox__label": { w: "full" },
       }}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     >
       <Flex flex={1} direction="column">
-        <Text flex={1} as="span" fontSize="13.5px" lineHeight="1.5">
-          {title}
-        </Text>
+        <Flex
+          as="span"
+          tabIndex={0}
+          _focusVisible={{
+            boxShadow: "outline",
+            outline: "none",
+          }}
+        >
+          <Text flex={1} as="span" fontSize="13.5px" lineHeight="1.5">
+            {title}
+          </Text>
+        </Flex>
         <Flex
           flex={1}
           fontSize="xs"
