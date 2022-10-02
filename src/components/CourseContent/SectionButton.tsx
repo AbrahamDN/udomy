@@ -35,7 +35,7 @@ const SectionButton = ({
                 {itemsCount}
               </Text>
             )}
-            {" | "}
+            {itemsCount && timeLength && " | "}
             {timeLength && <Text as="span">{timeLength}</Text>}
           </Box>
         )}
