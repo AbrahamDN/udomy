@@ -1,5 +1,4 @@
 import React from "react";
-import { COURSE_CONTENT_DATA } from "../../data";
 
 import {
   Accordion,
@@ -10,17 +9,8 @@ import {
 import SectionButton from "./SectionButton";
 import CurriculumItem from "./CurriculumItem";
 import { useCourseData } from "../../globalStates";
-
-function convertHMS(d: string) {
-  d = Number(d);
-  const h = Math.floor(d / 3600);
-  const m = Math.floor((d % 3600) / 60);
-  const s = Math.floor((d % 3600) % 60);
-
-  const hDisplay = h > 0 ? h + (h == 1 ? " hr, " : " hrs, ") : "";
-  const mDisplay = m > 0 ? m + (m == 1 ? " min " : " mins ") : "";
-  return hDisplay + mDisplay;
-}
+import currExtensions from "../../../contstants/curriculumExtensions.schema";
+import convertHMS from "../../utils/convertHMS";
 
 const CourseContent = () => {
   const [courseData] = useCourseData();
@@ -37,7 +27,7 @@ const CourseContent = () => {
       {courseRootFiles?.length > 0 && (
         <AccordionItem borderColor="gray.300">
           <SectionButton
-            title="00 - Section"
+            title="Base section"
             itemsCompleted={0}
             itemsCount={courseRootFiles?.length || 0}
             // timeLength={convertHMS(data.custom.duration)}
@@ -45,17 +35,22 @@ const CourseContent = () => {
 
           <AccordionPanel p={0}>
             <Stack spacing={0} direction="column">
-              {courseRootFiles.map(
-                (data, i) =>
-                  data.extension === ".mp4" && (
+              {courseRootFiles.map((data, i) => {
+                const item = currExtensions.find(
+                  ({ extension }) => extension === data.extension
+                );
+
+                return (
+                  item?.extension && (
                     <CurriculumItem
                       key={`curr-item-${i}`}
                       title={data.name}
-                      type={"video"}
+                      type={item.type}
                       timeLength={convertHMS(data.custom.duration)}
                     />
                   )
-              )}
+                );
+              })}
             </Stack>
           </AccordionPanel>
         </AccordionItem>
@@ -72,17 +67,22 @@ const CourseContent = () => {
 
           <AccordionPanel p={0}>
             <Stack spacing={0} direction="column">
-              {data.children.map(
-                (child, i) =>
-                  child.extension === ".mp4" && (
+              {data.children.map((child, i) => {
+                const item = currExtensions.find(
+                  ({ extension }) => extension === child.extension
+                );
+
+                return (
+                  item?.extension && (
                     <CurriculumItem
                       key={`curr-item-${i}`}
                       title={child.name}
-                      type={"video"}
+                      type={item.type}
                       timeLength={convertHMS(child.custom.duration)}
                     />
                   )
-              )}
+                );
+              })}
             </Stack>
           </AccordionPanel>
         </AccordionItem>
