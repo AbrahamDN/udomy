@@ -5,6 +5,7 @@ import { useIdle } from "react-use";
 import VideoOverlayGradient from "./VideoOverlayGradient";
 import VideoControls from "../VideoControls";
 import {
+  useActiveFile,
   useCaptionUnder,
   useHover,
   useVideoHoverActive,
@@ -14,6 +15,7 @@ import VideoCaptions from "../VideoControls/VideoCaptions";
 
 const VideoOverlay = () => {
   const togglePlay = useContext(VideoContext).functions.togglePlay;
+  const [activeFile] = useActiveFile();
 
   const [hover] = useHover();
   const [hoverActive] = useVideoHoverActive();
@@ -44,7 +46,7 @@ const VideoOverlay = () => {
       <VideoOverlayGradient position="absolute" top="0">
         <Container mx="xl" mt={4}>
           <Text w="fit-content" pointerEvents="auto">
-            Title of the video
+            {activeFile.name}
           </Text>
         </Container>
       </VideoOverlayGradient>

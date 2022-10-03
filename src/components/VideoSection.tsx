@@ -13,7 +13,6 @@ import {
   useActiveFile,
   useSidebar,
   useVideoFirstMount,
-  useVideoFullscreen,
   useVideoLoading,
 } from "../globalStates";
 import PageContainer from "./PageContainer";
