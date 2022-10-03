@@ -8,10 +8,12 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../components/Dashboard";
 import VideoSection from "../components/VideoSection";
 import { Footer } from "../components/Footer";
-import { useCourseData, useSidebar } from "../globalStates";
+import { useActiveFile, useCourseData, useSidebar } from "../globalStates";
+import currExtensions from "../../contstants/curriculumExtensions.schema";
 
-const Index = ({ course }) => {
+const Index = ({ course, defaultFile }) => {
   const setCourseData = useCourseData()[1];
+  const setActiveFile = useActiveFile()[1];
   const [sidebar, setSidebar] = useSidebar();
   const [localSidebar, setLocalSidebar] = useLocalStorage("sidebar", false);
   const [] = useLocalStorage("course", course);
@@ -21,6 +23,8 @@ const Index = ({ course }) => {
   useEffect(() => {
     setSidebar(localSidebar);
     setCourseData(course);
+    setActiveFile(course?.children.find((file) => file.type === "file")[0]);
+    if (defaultFile) setActiveFile(defaultFile);
   }, []);
 
   useEffect(() => {
@@ -61,15 +65,25 @@ export default Index;
 
 export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3000/api/getCourse`);
-  const data = await res.json();
+  const course = await res.json();
 
-  if (!data) {
+  if (!course) {
     return {
       notFound: true,
     };
   }
 
+  const isVideo = (item) =>
+    currExtensions.find(({ extension }) => extension === item.extension)
+      ?.type === "video";
+  const firstVideo = course.children?.find((file) => isVideo(file) && file);
+  const firstFolder = course.children?.find((file) => file.children);
+  const firstSubVideo = firstFolder.children?.find(
+    (file) => isVideo(file) && file
+  );
+  const defaultFile = firstVideo || firstSubVideo;
+
   return {
-    props: { course: data },
+    props: { course, defaultFile },
   };
 }
