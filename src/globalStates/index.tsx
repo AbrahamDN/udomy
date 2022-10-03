@@ -1,25 +1,10 @@
 import { createGlobalState } from "react-use";
 import { VideoOverlayIconNames } from "../components/Video/VideoOverlay/VideoOrverlay.types";
-
-type CourseData = {
-  children: any[];
-};
-
-type ActiveFile = {
-  path: string;
-  name: string;
-  extension: string;
-  type: string;
-  custom: {
-    id: string;
-    rawPath: string;
-    duration: number;
-  };
-};
+import { CourseDataType, FileDataType } from "../types/data.types";
 
 export const //
-  useCourseData = createGlobalState<CourseData>(),
-  useActiveFile = createGlobalState<ActiveFile>({
+  useCourseData = createGlobalState<CourseDataType>(),
+  useActiveFile = createGlobalState<FileDataType>({
     path: "course/README.md",
     name: "README",
     extension: ".md",

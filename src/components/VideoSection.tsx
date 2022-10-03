@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import {
   AspectRatio,
@@ -10,10 +10,14 @@ import {
 import OpenSidebarButton from "./OpenSidebarButton";
 import Video from "./Video";
 import {
+  useActiveFile,
   useSidebar,
   useVideoFirstMount,
+  useVideoFullscreen,
   useVideoLoading,
 } from "../globalStates";
+import PageContainer from "./PageContainer";
+import curriculumType from "../utils/curriculumType";
 
 type VideoSectionProps = {
   sidebar?: boolean;
@@ -22,9 +26,10 @@ type VideoSectionProps = {
 
 const VideoSection = ({}: VideoSectionProps) => {
   const setVideoFirstMount = useVideoFirstMount()[1];
+  const [activeFile] = useActiveFile();
+  const [loading] = useVideoLoading();
   const [sidebar, setSidebar] = useSidebar();
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
-  const [loading] = useVideoLoading();
 
   useEffect(() => setVideoFirstMount(true), []);
 
@@ -38,29 +43,35 @@ const VideoSection = ({}: VideoSectionProps) => {
       ratio={16 / 9}
       position="relative"
     >
-      <Box bg="black" position="relative">
-        {loading && (
-          <Flex
-            w={24}
-            h={24}
-            position="absolute"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="full"
-            color="white"
-            zIndex="overlay"
-          >
-            <Spinner
-              w={16}
-              h={16}
-              thickness="10px"
-              speed="0.65s"
-              label="Loading..."
-            />
-          </Flex>
-        )}
+      <Box bg="black" color="white" position="relative">
+        {curriculumType(activeFile) ? (
+          <>
+            {loading && (
+              <Flex
+                w={24}
+                h={24}
+                position="absolute"
+                alignItems="center"
+                justifyContent="center"
+                borderRadius="full"
+                color="white"
+                zIndex="overlay"
+              >
+                <Spinner
+                  w={16}
+                  h={16}
+                  thickness="10px"
+                  speed="0.65s"
+                  label="Loading..."
+                />
+              </Flex>
+            )}
 
-        <Video />
+            <Video />
+          </>
+        ) : (
+          <PageContainer path={activeFile.path} />
+        )}
 
         {isLargeScreen && !sidebar && (
           <OpenSidebarButton setSidebar={setSidebar} />

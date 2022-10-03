@@ -1,4 +1,4 @@
-function convertHMS(duration: string) {
+function convertHMS(duration: string | number) {
   const dur = Number(duration);
   const h = Math.floor(dur / 3600);
   const m = Math.floor((dur % 3600) / 60);
