@@ -4,6 +4,8 @@ Udemy clone
 
 ![screenshot](https://i.imgur.com/GaTidMT.png)
 
+**You need to have `ffmpeg` installed on your machine**
+
 ## How to use
 
 1. Clone project `git clone https://github.com/AbrahamDN/udomy.git`
