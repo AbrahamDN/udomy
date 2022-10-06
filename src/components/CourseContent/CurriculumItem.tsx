@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useEvent } from "react-use";
-import { Box, Checkbox, Flex, Text, useEventListener } from "@chakra-ui/react";
+import { Checkbox, Flex, Text } from "@chakra-ui/react";
 import { PageIcon, VideoIcon } from "../Icons";
 
 type CurriculumItemProps = {
@@ -9,32 +9,35 @@ type CurriculumItemProps = {
   timeLength?: string;
   itemsCount?: number;
   itemsCompleted?: number;
+  onClick?: () => void;
 };
+
+type KE = KeyboardEvent;
 
 const CurriculumItem = ({
   title,
   type = "video",
   timeLength,
+  onClick,
 }: CurriculumItemProps) => {
   const [checked, setChecked] = useState(false);
-  const [focused, setFocused] = useState(false);
+  const setFocused = useState(false)[1];
   const [hover, setHover] = useState(false);
   const ref = useRef<HTMLInputElement>();
+  const titleRef = useRef<HTMLDivElement>();
 
-  const handleKeyDown = (e: KeyboardEvent) =>
-    e.key === "Enter" && setChecked((prev) => !prev);
+  const toggleChecked = () => setChecked((prev) => !prev);
+  const handleKeyDown = (e: KeyboardEvent, action: () => void) =>
+    e.key === "Enter" && action();
 
-  useEvent(
-    "click",
-    () => setChecked((prev) => !prev),
-    ref?.current?.nextSibling
-  );
-  useEvent("keydown", handleKeyDown, ref?.current);
+  useEvent("click", onClick, ref?.current);
+  useEvent("click", toggleChecked, ref?.current?.nextSibling);
+  useEvent("keydown", (e: KE) => handleKeyDown(e, toggleChecked), ref?.current);
+  useEvent("keydown", (e: KE) => handleKeyDown(e, onClick), titleRef?.current);
 
   return (
     <Checkbox
       ref={ref}
-      isReadOnly
       isChecked={checked}
       colorScheme="schemeBlack"
       borderColor="dark"
@@ -55,6 +58,7 @@ const CurriculumItem = ({
     >
       <Flex flex={1} direction="column">
         <Flex
+          ref={titleRef}
           as="span"
           tabIndex={0}
           _focusVisible={{

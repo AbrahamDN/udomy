@@ -33,7 +33,7 @@ const VideoTimeline = () => {
   const handleTimeUpdate = () => {
     if (!video) return;
     const percent = (video.currentTime / video.duration) * 100;
-    const bufferEnd = video.buffered.end(0);
+    const bufferEnd = video.buffered.end(0) || 0;
     const loaded = (bufferEnd / video.duration) * 100;
 
     setPreviewPosition(loaded);

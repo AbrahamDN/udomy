@@ -7,6 +7,7 @@ import VideoOverlay from "./VideoOverlay";
 import VideoContext from "../../../context/video.context";
 import { VideoOverlayIconNames } from "./VideoOverlay/VideoOrverlay.types";
 import {
+  useActiveFile,
   useCaptionSize,
   useCaptionUnder,
   useHover,
@@ -38,6 +39,7 @@ const Video = () => {
   const setCaption = useVideoCaption()[1];
   const [volume, setVolume] = useVideoVolume();
   const [fullScreen, setFullScreen] = useVideoFullscreen();
+  const [activeFile] = useActiveFile();
 
   const [localVolume, setLocalVolume] = useLocalStorage("volume", 1);
   // States
@@ -196,18 +198,14 @@ const Video = () => {
 
           <video
             ref={videoRef}
+            src={activeFile.path}
             style={{ position: "absolute", width: "100%", height: "100%" }}
             autoPlay={!videoFirstMount && autoplay}
             muted={autoplay}
             onPause={() => setPaused(true)}
             onPlaying={() => setPaused(false)}
             onClick={togglePlay}
-          >
-            <source
-              src="/course/01-Introduction/01- How Dropshipping Really Works.mp4"
-              type="video/mp4"
-            />
-          </video>
+          />
         </Flex>
         {captionUnder && (
           <Flex

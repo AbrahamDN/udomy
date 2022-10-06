@@ -8,11 +8,12 @@ import {
 } from "@chakra-ui/react";
 import SectionButton from "./SectionButton";
 import CurriculumItem from "./CurriculumItem";
-import { useCourseData } from "../../globalStates";
+import { useActiveFile, useCourseData } from "../../globalStates";
 import currExtensions from "../../../contstants/curriculumExtensions.schema";
 import convertHMS from "../../utils/convertHMS";
 
 const CourseContent = () => {
+  const [activeFile, setActiveFile] = useActiveFile();
   const [courseData] = useCourseData();
   const courseSections = courseData?.children;
   const courseRootFiles = courseSections?.filter(
@@ -47,6 +48,7 @@ const CourseContent = () => {
                       title={data.name}
                       type={item.type}
                       timeLength={convertHMS(data.custom.duration)}
+                      onClick={() => setActiveFile(data)}
                     />
                   )
                 );
@@ -79,6 +81,7 @@ const CourseContent = () => {
                       title={child.name}
                       type={item.type}
                       timeLength={convertHMS(child.custom.duration)}
+                      onClick={() => setActiveFile(child)}
                     />
                   )
                 );
